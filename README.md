@@ -6,7 +6,7 @@
 
 #### Overview
 
-This project is a comprehensive **Library Management System** designed to manage books, members, librarians, digital resources, loans, reservations, fines, reviews, and library events. The system provides a robust object-oriented structure, encapsulating real-world library operations and interactions.
+This project is a comprehensive **Library Management System** designed to manage books, members, librarians, digital resources, loans, reservations, fines, reviews, categories, and library events. The system provides a robust object-oriented structure, encapsulating real-world library operations and interactions.
 
 ---
 
@@ -17,21 +17,24 @@ This project is a comprehensive **Library Management System** designed to manage
 - Enable librarians to add or remove books and manage library operations.
 - Handle fines, reviews, and library events.
 - Provide a scalable and maintainable codebase using object-oriented principles.
+- Demonstrate all four pillars of OOP: encapsulation, abstraction, inheritance, and polymorphism.
 
 ---
 
 #### Key Classes and Their Roles
 
+- **Library**: Central class managing collections of books and members.
 - **Book**: Represents a physical book, tracks copies, and supports borrowing/returning.
+- **Category**: Classifies books and digital resources.
+- **Person**: Abstract base class for people in the system.
 - **Member**: Represents a library member, manages borrowed books, and supports borrowing/returning logic.
 - **Librarian**: Manages library inventory (add/remove books).
-- **Library**: Central class managing collections of books and members.
-- **Category**: Classifies books and digital resources.
+- **LibraryResource**: Abstract base class for resources in the library.
 - **DigitalResource**: Represents non-physical resources (e.g., e-books, PDFs).
+- **Review**: Allows members to review books and digital resources.
 - **Loan**: Tracks the borrowing of books by members.
 - **Reservation**: Handles book reservations by members.
 - **Fine**: Manages penalties for overdue books.
-- **Review**: Allows members to review books.
 - **LibraryEvent**: Represents events organized by the library.
 
 ---
@@ -50,7 +53,10 @@ This project is a comprehensive **Library Management System** designed to manage
 
 #### Design Principles
 
-- **Encapsulation**: Private fields with public methods for controlled access.
+- **Encapsulation**: Private/protected fields with public methods for controlled access.
+- **Abstraction**: Abstract classes (`Person`, `LibraryResource`) define common structure and behavior, hiding implementation details.
+- **Inheritance**: `Member` and `Librarian` inherit from `Person`; `Book` and `DigitalResource` inherit from `LibraryResource`.
+- **Polymorphism**: Method overriding (e.g., `toString()`) allows different classes to provide their own implementations.
 - **Exception Handling**: Try-catch-finally blocks to manage errors gracefully.
 - **Modularity**: Each class has a clear, single responsibility.
 - **Extensibility**: Easy to add new features (e.g., new resource types or operations).
@@ -59,13 +65,13 @@ This project is a comprehensive **Library Management System** designed to manage
 
 #### Usage
 
-The system can be run from the `Main` class, which provides sample data and demonstrates core functionalities such as adding books, registering members, borrowing/returning books, and more.
+The system can be run from the `Main` class, which provides sample data and demonstrates core functionalities such as adding books, registering members, borrowing/returning books, and more. All classes are modular and can be extended for additional features.
 
 ---
 
 #### Conclusion
 
-This Library Management System provides a solid foundation for managing a library's resources and operations. The modular, object-oriented design ensures maintainability and scalability for future enhancements.
+This Library Management System provides a solid foundation for managing a library's resources and operations. The modular, object-oriented design ensures maintainability and scalability for future enhancements. The use of OOP principles ensures the codebase is easy to maintain and extend. The logical grouping of classes allows for clear explanations and smooth collaboration among team members.
 
 ---
 
