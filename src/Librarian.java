@@ -17,7 +17,7 @@ public class Librarian extends Person {
         } catch (IllegalArgumentException e) {
             System.err.println("Error adding book: " + e.getMessage());
         } finally {
-            System.out.println("Attempted to add a book.");
+            // System.out.println("Attempted to add a book.");
         }
     }
 
@@ -34,7 +34,7 @@ public class Librarian extends Person {
         } catch (IllegalArgumentException e) {
             System.err.println("Error removing book: " + e.getMessage());
         } finally {
-            System.out.println("Attempted to remove a book.");
+            // System.out.println("Attempted to remove a book.");
         }
     }
 

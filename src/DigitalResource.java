@@ -20,7 +20,7 @@ public class DigitalResource extends LibraryResource {
         } catch (IllegalArgumentException e) {
             System.err.println("Error accessing resource: " + e.getMessage());
         } finally {
-            System.out.println("Attempted to access digital resource.");
+            // System.out.println("Attempted to access digital resource.");
         }
     }
 

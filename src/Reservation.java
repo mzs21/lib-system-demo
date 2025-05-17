@@ -20,7 +20,7 @@ public class Reservation {
             System.err.println("Error creating Reservation: " + e.getMessage());
             throw e;
         } finally {
-            System.out.println("Attempted to create a Reservation.");
+            // System.out.println("Attempted to create a Reservation.");
         }
     }
 

@@ -30,7 +30,7 @@ public class Member extends Person {
         } catch (IllegalArgumentException | IllegalStateException e) {
             System.err.println("Error borrowing book: " + e.getMessage());
         } finally {
-            System.out.println("Attempted to borrow a book.");
+            // System.out.println("Attempted to borrow a book.");
         }
     }
 
@@ -45,7 +45,7 @@ public class Member extends Person {
         } catch (IllegalArgumentException | IllegalStateException e) {
             System.err.println("Error returning book: " + e.getMessage());
         } finally {
-            System.out.println("Attempted to return a book.");
+            // System.out.println("Attempted to return a book.");
         }
     }
 

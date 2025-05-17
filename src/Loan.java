@@ -24,7 +24,7 @@ public class Loan {
             System.err.println("Error creating Loan: " + e.getMessage());
             throw e;
         } finally {
-            System.out.println("Attempted to create a Loan.");
+            // System.out.println("Attempted to create a Loan.");
         }
     }
 

@@ -25,7 +25,7 @@ public class Fine {
         } catch (IllegalArgumentException e) {
             System.err.println("Error paying fine: " + e.getMessage());
         } finally {
-            System.out.println("Attempted to pay fine.");
+            // System.out.println("Attempted to pay fine.");
         }
     }
 
