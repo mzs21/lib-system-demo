@@ -9,10 +9,23 @@ public class Loan {
     private LocalDate returnDate;
 
     public Loan(int bookId, int memberId, LocalDate borrowDate, LocalDate returnDate) {
-        this.bookId = bookId;
-        this.memberId = memberId;
-        this.borrowDate = borrowDate;
-        this.returnDate = returnDate;
+        try {
+            if (borrowDate == null) {
+                throw new IllegalArgumentException("Borrow date cannot be null.");
+            }
+            if (returnDate != null && returnDate.isBefore(borrowDate)) {
+                throw new IllegalArgumentException("Return date cannot be before borrow date.");
+            }
+            this.bookId = bookId;
+            this.memberId = memberId;
+            this.borrowDate = borrowDate;
+            this.returnDate = returnDate;
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error creating Loan: " + e.getMessage());
+            throw e;
+        } finally {
+            System.out.println("Attempted to create a Loan.");
+        }
     }
 
     // Getters
@@ -22,7 +35,7 @@ public class Loan {
     public LocalDate getReturnDate() { return returnDate; }
 
     public String loanDetails() {
-        return "Loan [bookId=" + bookId + ", memberId=" + memberId + 
-               ", borrowed=" + borrowDate + ", return=" + returnDate + "]";
+        return "Loan: Book ID: " + bookId + ", Member ID: " + memberId +
+       ", Borrowed: " + borrowDate + ", Return: " + returnDate;
     }
 }

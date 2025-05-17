@@ -9,11 +9,24 @@ public class Review {
     private String comment;
 
     public Review(int id, int bookId, int memberId, int rating, String comment) {
-        this.id = id;
-        this.bookId = bookId;
-        this.memberId = memberId;
-        this.rating = rating;
-        this.comment = comment;
+        try {
+            if (rating < 1 || rating > 5) {
+                throw new IllegalArgumentException("Rating must be between 1 and 5.");
+            }
+            if (comment == null) {
+                throw new IllegalArgumentException("Comment cannot be null.");
+            }
+            this.id = id;
+            this.bookId = bookId;
+            this.memberId = memberId;
+            this.rating = rating;
+            this.comment = comment;
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error creating Review: " + e.getMessage());
+            throw e;
+        } finally {
+            System.out.println("Attempted to create a Review.");
+        }
     }
 
     // Getters
@@ -24,7 +37,6 @@ public class Review {
     public String getComment() { return comment; }
 
     public String reviewDetails() {
-        return "Review [id=" + id + ", bookId=" + bookId + ", memberId=" + memberId + 
-               ", rating=" + rating + ", comment=" + comment + "]";
+        return "Review: Book ID: " + bookId + ", Member ID: " + memberId + ", Rating: " + rating + ", Comment: " + comment + ", ID: " + id;
     }
 }

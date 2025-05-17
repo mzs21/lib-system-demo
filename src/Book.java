@@ -28,20 +28,25 @@ public class Book {
         this.copiesAvailable = copiesAvailable; 
     }
 
-    // Methods representing book behaviors
+    
     public void borrowBook() {
         if (copiesAvailable > 0) {
             copiesAvailable--;
+        } else {
+            throw new IllegalStateException("No copies available to borrow.");
         }
     }
 
     public void returnBook() {
+        if (copiesAvailable < 0) {
+            throw new IllegalStateException("Copies available cannot be negative.");
+        }
         copiesAvailable++;
     }
 
     @Override
     public String toString() {
-        return "Book [id=" + id + ", title=" + title + ", author=" + author + 
-               ", genre=" + genre + ", year=" + publicationYear + ", available=" + copiesAvailable + "]";
+        return "Book: " + title + ", Author: " + author + ", Genre: " + genre +
+       ", P. Year: " + publicationYear + ", Available copies: " + copiesAvailable + ", ID: " + id;
     }
 }

@@ -16,6 +16,6 @@ public class Category {
     public String getDescription() { return description; }
 
     public String categoryDetails() {
-        return "Category [id=" + id + ", name=" + name + ", description=" + description + "]";
+        return "Category: Name: " + name + ", Description: " + description + ", ID: " + id;
     }
 }

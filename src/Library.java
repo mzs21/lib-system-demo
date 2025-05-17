@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +13,28 @@ public class Library {
 
     // Methods for managing books
     public void addBook(Book book) {
-        if (book != null) {
+        try {
+            if (book == null) {
+                throw new IllegalArgumentException("Book cannot be null.");
+            }
             books.add(book);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error adding book: " + e.getMessage());
+        } finally {
+            System.out.println("Attempted to add a book.");
         }
     }
 
     public void removeBook(Book book) {
-        if (book != null) {
+        try {
+            if (book == null) {
+                throw new IllegalArgumentException("Book cannot be null.");
+            }
             books.remove(book);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error removing book: " + e.getMessage());
+        } finally {
+            System.out.println("Attempted to remove a book.");
         }
     }
 
@@ -36,8 +49,15 @@ public class Library {
 
     // Methods for managing members
     public void addMember(Member member) {
-        if (member != null) {
+        try {
+            if (member == null) {
+                throw new IllegalArgumentException("Member cannot be null.");
+            }
             members.add(member);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error adding member: " + e.getMessage());
+        } finally {
+            System.out.println("Attempted to add a member.");
         }
     }
 

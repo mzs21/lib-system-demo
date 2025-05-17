@@ -1,4 +1,3 @@
-
 // Inheritance - Could be a subclass of Resource if we had such a class
 public class DigitalResource {
     private int id;
@@ -23,12 +22,21 @@ public class DigitalResource {
     public String getFileUrl() { return fileUrl; }
 
     public void accessResource() {
-        System.out.println("Accessing digital resource: " + title + " at " + fileUrl);
+        try {
+            if (fileUrl == null || fileUrl.trim().isEmpty()) {
+                throw new IllegalArgumentException("File URL is invalid or missing.");
+            }
+            System.out.println("Accessing digital resource: " + title + " at " + fileUrl);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error accessing resource: " + e.getMessage());
+        } finally {
+            System.out.println("Attempted to access digital resource.");
+        }
     }
 
     @Override
-    public String toString() {
-        return "DigitalResource [id=" + id + ", title=" + title + ", type=" + type + 
-               ", author=" + author + ", url=" + fileUrl + "]";
-    }
+public String toString() {
+    return "DigitalResource: " + title + ", Author: " + author + ", Type: " + type +
+           ", URL: " + fileUrl + ", ID: " + id;
+}
 }

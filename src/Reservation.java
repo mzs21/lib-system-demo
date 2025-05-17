@@ -8,10 +8,20 @@ public class Reservation {
     private LocalDate reservationDate;
 
     public Reservation(int id, int bookId, int memberId, LocalDate reservationDate) {
-        this.id = id;
-        this.bookId = bookId;
-        this.memberId = memberId;
-        this.reservationDate = reservationDate;
+        try {
+            if (reservationDate == null) {
+                throw new IllegalArgumentException("Reservation date cannot be null.");
+            }
+            this.id = id;
+            this.bookId = bookId;
+            this.memberId = memberId;
+            this.reservationDate = reservationDate;
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error creating Reservation: " + e.getMessage());
+            throw e;
+        } finally {
+            System.out.println("Attempted to create a Reservation.");
+        }
     }
 
     // Getters
@@ -21,7 +31,6 @@ public class Reservation {
     public LocalDate getReservationDate() { return reservationDate; }
 
     public String reservationInfo() {
-        return "Reservation [id=" + id + ", bookId=" + bookId + 
-               ", memberId=" + memberId + ", date=" + reservationDate + "]";
+        return "Reservation: Book ID: " + bookId + ", Member ID: " + memberId + ", Date: " + reservationDate + ", ID: " + id;
     }
 }

@@ -1,4 +1,3 @@
-
 import java.time.LocalDate;
 
 public class LibraryEvent {
@@ -8,10 +7,24 @@ public class LibraryEvent {
     private LocalDate date;
 
     public LibraryEvent(int id, String title, String description, LocalDate date) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.date = date;
+        try {
+            if (title == null || title.trim().isEmpty()) {
+                throw new IllegalArgumentException("Event title cannot be null or empty.");
+            }
+            if (date == null) {
+                throw new IllegalArgumentException("Event date cannot be null.");
+            }
+            this.id = id;
+            this.title = title;
+            this.description = description;
+            this.date = date;
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error creating LibraryEvent: " + e.getMessage());
+            
+            throw e;
+        } finally {
+            System.out.println("Attempted to create a LibraryEvent.");
+        }
     }
 
     // Getters
@@ -21,7 +34,6 @@ public class LibraryEvent {
     public LocalDate getDate() { return date; }
 
     public String libraryEventInfo() {
-        return "Event [id=" + id + ", title=" + title + ", date=" + date + 
-               ", description=" + description + "]";
+        return "Event: " + title + ", Date: " + date + ", Description: " + description + ", ID: " + id;
     }
 }
