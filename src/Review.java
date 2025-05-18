@@ -1,5 +1,3 @@
-
-
 // Association - Review connects Book and Member
 public class Review {
     private int id;
@@ -9,24 +7,26 @@ public class Review {
     private String comment;
 
     public Review(int id, int bookId, int memberId, int rating, String comment) {
-        try {
-            if (rating < 1 || rating > 5) {
-                throw new IllegalArgumentException("Rating must be between 1 and 5.");
-            }
-            if (comment == null) {
-                throw new IllegalArgumentException("Comment cannot be null.");
-            }
-            this.id = id;
-            this.bookId = bookId;
-            this.memberId = memberId;
-            this.rating = rating;
-            this.comment = comment;
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error creating Review: " + e.getMessage());
-            throw e;
-        } finally {
-            System.out.println("Attempted to create a Review.");
+        if (id <= 0) {
+            throw new IllegalArgumentException("Review ID must be positive.");
         }
+        if (bookId <= 0) {
+            throw new IllegalArgumentException("Book ID must be positive.");
+        }
+        if (memberId <= 0) {
+            throw new IllegalArgumentException("Member ID must be positive.");
+        }
+        if (rating < 1 || rating > 5) {
+            throw new IllegalArgumentException("Rating must be between 1 and 5.");
+        }
+        if (comment == null) {
+            throw new IllegalArgumentException("Comment cannot be null.");
+        }
+        this.id = id;
+        this.bookId = bookId;
+        this.memberId = memberId;
+        this.rating = rating;
+        this.comment = comment;
     }
 
     // Getters

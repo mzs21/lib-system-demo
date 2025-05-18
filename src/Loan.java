@@ -1,4 +1,3 @@
-
 import java.time.LocalDate;
 
 // Association - Loan connects Book and Member
@@ -9,23 +8,22 @@ public class Loan {
     private LocalDate returnDate;
 
     public Loan(int bookId, int memberId, LocalDate borrowDate, LocalDate returnDate) {
-        try {
-            if (borrowDate == null) {
-                throw new IllegalArgumentException("Borrow date cannot be null.");
-            }
-            if (returnDate != null && returnDate.isBefore(borrowDate)) {
-                throw new IllegalArgumentException("Return date cannot be before borrow date.");
-            }
-            this.bookId = bookId;
-            this.memberId = memberId;
-            this.borrowDate = borrowDate;
-            this.returnDate = returnDate;
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error creating Loan: " + e.getMessage());
-            throw e;
-        } finally {
-            // System.out.println("Attempted to create a Loan.");
+        if (bookId <= 0) {
+            throw new IllegalArgumentException("Book ID must be positive.");
         }
+        if (memberId <= 0) {
+            throw new IllegalArgumentException("Member ID must be positive.");
+        }
+        if (borrowDate == null) {
+            throw new IllegalArgumentException("Borrow date cannot be null.");
+        }
+        if (returnDate != null && returnDate.isBefore(borrowDate)) {
+            throw new IllegalArgumentException("Return date cannot be before borrow date.");
+        }
+        this.bookId = bookId;
+        this.memberId = memberId;
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
     }
 
     // Getters
@@ -36,6 +34,6 @@ public class Loan {
 
     public String loanDetails() {
         return "Loan: Book ID: " + bookId + ", Member ID: " + memberId +
-       ", Borrowed: " + borrowDate + ", Return: " + returnDate;
+               ", Borrowed: " + borrowDate + ", Return: " + returnDate;
     }
 }

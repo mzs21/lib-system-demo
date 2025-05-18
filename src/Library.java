@@ -13,28 +13,21 @@ public class Library {
 
     // Methods for managing books
     public void addBook(Book book) {
-        try {
-            if (book == null) {
-                throw new IllegalArgumentException("Book cannot be null.");
-            }
-            books.add(book);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error adding book: " + e.getMessage());
-        } finally {
-            System.out.println("Attempted to add a book.");
+        if (book == null) {
+            throw new IllegalArgumentException("Book cannot be null.");
         }
+        if (getBook(book.getId()) != null) {
+            throw new IllegalArgumentException("A book with this ID already exists.");
+        }
+        books.add(book);
     }
 
     public void removeBook(Book book) {
-        try {
-            if (book == null) {
-                throw new IllegalArgumentException("Book cannot be null.");
-            }
-            books.remove(book);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error removing book: " + e.getMessage());
-        } finally {
-            System.out.println("Attempted to remove a book.");
+        if (book == null) {
+            throw new IllegalArgumentException("Book cannot be null.");
+        }
+        if (!books.remove(book)) {
+            throw new IllegalArgumentException("Book not found in the library.");
         }
     }
 
@@ -49,16 +42,13 @@ public class Library {
 
     // Methods for managing members
     public void addMember(Member member) {
-        try {
-            if (member == null) {
-                throw new IllegalArgumentException("Member cannot be null.");
-            }
-            members.add(member);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error adding member: " + e.getMessage());
-        } finally {
-            System.out.println("Attempted to add a member.");
+        if (member == null) {
+            throw new IllegalArgumentException("Member cannot be null.");
         }
+        if (getMember(member.getId()) != null) {
+            throw new IllegalArgumentException("A member with this ID already exists.");
+        }
+        members.add(member);
     }
 
     public Member getMember(int id) {

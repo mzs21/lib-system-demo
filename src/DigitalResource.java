@@ -4,6 +4,12 @@ public class DigitalResource extends LibraryResource {
 
     public DigitalResource(int id, String title, String author, String type, String fileUrl) {
         super(id, title, author);
+        if (type == null || type.trim().isEmpty()) {
+            throw new IllegalArgumentException("Type cannot be null or empty.");
+        }
+        if (fileUrl == null || fileUrl.trim().isEmpty()) {
+            throw new IllegalArgumentException("File URL cannot be null or empty.");
+        }
         this.type = type;
         this.fileUrl = fileUrl;
     }
@@ -12,16 +18,7 @@ public class DigitalResource extends LibraryResource {
     public String getFileUrl() { return fileUrl; }
 
     public void accessResource() {
-        try {
-            if (fileUrl == null || fileUrl.trim().isEmpty()) {
-                throw new IllegalArgumentException("File URL is invalid or missing.");
-            }
-            System.out.println("Accessing digital resource: " + title + " at " + fileUrl);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error accessing resource: " + e.getMessage());
-        } finally {
-            // System.out.println("Attempted to access digital resource.");
-        }
+        System.out.println("Accessing digital resource: " + getTitle() + " at " + fileUrl);
     }
 
     @Override

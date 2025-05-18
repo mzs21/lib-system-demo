@@ -5,6 +5,15 @@ public class Book extends LibraryResource {
 
     public Book(int id, String title, String author, String genre, int publicationYear, int copiesAvailable) {
         super(id, title, author);
+        if (genre == null || genre.trim().isEmpty()) {
+            throw new IllegalArgumentException("Genre cannot be null or empty.");
+        }
+        if (publicationYear < 0) {
+            throw new IllegalArgumentException("Publication year cannot be negative.");
+        }
+        if (copiesAvailable < 0) {
+            throw new IllegalArgumentException("Copies available cannot be negative.");
+        }
         this.genre = genre;
         this.publicationYear = publicationYear;
         this.copiesAvailable = copiesAvailable;
@@ -15,17 +24,13 @@ public class Book extends LibraryResource {
     public int getCopiesAvailable() { return copiesAvailable; }
 
     public void borrowBook() {
-        if (copiesAvailable > 0) {
-            copiesAvailable--;
-        } else {
+        if (copiesAvailable <= 0) {
             throw new IllegalStateException("No copies available to borrow.");
         }
+        copiesAvailable--;
     }
 
     public void returnBook() {
-        if (copiesAvailable < 0) {
-            throw new IllegalStateException("Copies available cannot be negative.");
-        }
         copiesAvailable++;
     }
 

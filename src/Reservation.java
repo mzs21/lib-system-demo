@@ -8,20 +8,22 @@ public class Reservation {
     private LocalDate reservationDate;
 
     public Reservation(int id, int bookId, int memberId, LocalDate reservationDate) {
-        try {
-            if (reservationDate == null) {
-                throw new IllegalArgumentException("Reservation date cannot be null.");
-            }
-            this.id = id;
-            this.bookId = bookId;
-            this.memberId = memberId;
-            this.reservationDate = reservationDate;
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error creating Reservation: " + e.getMessage());
-            throw e;
-        } finally {
-            // System.out.println("Attempted to create a Reservation.");
+        if (id <= 0) {
+            throw new IllegalArgumentException("Reservation ID must be positive.");
         }
+        if (bookId <= 0) {
+            throw new IllegalArgumentException("Book ID must be positive.");
+        }
+        if (memberId <= 0) {
+            throw new IllegalArgumentException("Member ID must be positive.");
+        }
+        if (reservationDate == null) {
+            throw new IllegalArgumentException("Reservation date cannot be null.");
+        }
+        this.id = id;
+        this.bookId = bookId;
+        this.memberId = memberId;
+        this.reservationDate = reservationDate;
     }
 
     // Getters

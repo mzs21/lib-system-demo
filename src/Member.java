@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +8,9 @@ public class Member extends Person {
 
     public Member(int id, String name, String email) {
         super(id, name);
+        if (email == null || !email.contains("@") || !email.contains(".")) {
+            throw new IllegalArgumentException("Invalid email address.");
+        }
         this.email = email;
         this.borrowedBooks = new ArrayList<>();
     }
@@ -17,36 +19,31 @@ public class Member extends Person {
     public List<Book> getBorrowedBooks() { return borrowedBooks; }
 
     public void borrowBook(Book book) {
-        try {
-            if (book == null) {
-                throw new IllegalArgumentException("Book cannot be null.");
-            }
-            if (book.getCopiesAvailable() <= 0) {
-                throw new IllegalStateException("No copies available to borrow.");
-            }
-            book.borrowBook();
-            borrowedBooks.add(book);
-            System.out.println("Book borrowed successfully.");
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            System.err.println("Error borrowing book: " + e.getMessage());
-        } finally {
-            // System.out.println("Attempted to borrow a book.");
+        if (book == null) {
+            throw new IllegalArgumentException("Book cannot be null.");
         }
+        if (borrowedBooks.contains(book)) {
+            throw new IllegalStateException("This member has already borrowed this book.");
+        }
+        if (book.getCopiesAvailable() <= 0) {
+            throw new IllegalStateException("No copies available to borrow.");
+        }
+        if (borrowedBooks.size() >= 5) {
+            throw new IllegalStateException("This member has reached the borrowing limit (5 books).");
+        }
+        book.borrowBook();
+        borrowedBooks.add(book);
     }
 
     public void returnBook(Book book) {
-        try {
-            if (!borrowedBooks.contains(book)) {
-                throw new IllegalArgumentException("This book was not borrowed by the member.");
-            }
-            book.returnBook();
-            borrowedBooks.remove(book);
-            System.out.println("Book returned successfully.");
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            System.err.println("Error returning book: " + e.getMessage());
-        } finally {
-            // System.out.println("Attempted to return a book.");
+        if (book == null) {
+            throw new IllegalArgumentException("Book cannot be null.");
         }
+        if (!borrowedBooks.contains(book)) {
+            throw new IllegalArgumentException("This book was not borrowed by the member.");
+        }
+        book.returnBook();
+        borrowedBooks.remove(book);
     }
 
     @Override
