@@ -1,79 +1,70 @@
 import java.util.*;
 
 
-// SNIGDHO
+
 public class Main {
     private static Library library = new Library();
     private static Librarian librarian = new Librarian(1, "Admin Librarian");
     private static List<LibraryEvent> events = new ArrayList<>();
-
     private static Scanner scanner = new Scanner(System.in);
-
-// SNIGDHO
     
-// ALPEREN
     private static List<DigitalResource> digitalResources = new ArrayList<>();
-// ALPEREN
 
-// FARID 
+    private static List<Review> reviews = new ArrayList<>();
+    private static List<Reservation> reservations = new ArrayList<>();
+    private static List<Category> categories = new ArrayList<>();
 
-private static List<Review> reviews = new ArrayList<>();
-private static List<Reservation> reservations = new ArrayList<>();
-private static List<Category> categories = new ArrayList<>();
-// FARID 
 
-// CEYLIN
+    private static List<Loan> loans = new ArrayList<>();
+    private static List<Fine> fines = new ArrayList<>();
 
-private static List<Loan> loans = new ArrayList<>();
-private static List<Fine> fines = new ArrayList<>();
-// CEYLIN
     
     
     
 
 
-public static void main(String[] args) { // SNIGDHO
-    initializeSampleData(); // SNIGDHO
+public static void main(String[] args) {
+    initializeSampleData();
 
-    boolean running = true; // SNIGDHO
-    while (running) { // SNIGDHO
-        System.out.println("\n===== Library Management System ====="); // SNIGDHO
+    boolean running = true;
+    while (running) {
+        System.out.println("\n===== Library Management System =====");
 
-        System.out.println("1. Add Book"); // ALPEREN
-        System.out.println("2. Remove Book"); // ALPEREN
-        System.out.println("3. List All Books"); // ALPEREN
-        System.out.println("4. Add Digital Resource"); // ALPEREN
-        System.out.println("5. Remove Digital Resource"); // ALPEREN
-        System.out.println("6. List Digital Resources"); // ALPEREN
+        System.out.println("1. Add Book"); 
+        System.out.println("2. Remove Book"); 
+        System.out.println("3. List All Books"); 
+        System.out.println("4. Add Digital Resource"); 
+        System.out.println("5. Remove Digital Resource"); 
+        System.out.println("6. List Digital Resources"); 
 
-        System.out.println("7. Add Member"); // CEYLIN
-        System.out.println("8. List All Members"); // CEYLIN
-        System.out.println("9. Borrow Book"); // CEYLIN
-        System.out.println("10. Return Book"); // CEYLIN
-        System.out.println("11. Pay Fine"); // CEYLIN
-        System.out.println("12. List Fines"); // CEYLIN
+        System.out.println("7. Add Member"); 
+        System.out.println("8. List All Members"); 
+        System.out.println("9. Borrow Book"); 
+        System.out.println("10. Return Book"); 
+        System.out.println("11. Pay Fine"); 
+        System.out.println("12. List Fines"); 
 
-        System.out.println("13. List Loans"); // CEYLIN
+        System.out.println("13. List Loans"); 
 
-        System.out.println("14. Add Review"); // FARID
-        System.out.println("15. List Reviews"); // FARID
-        System.out.println("16. Make Reservation"); // FARID
-        System.out.println("17. List Reservations"); // FARID
-        System.out.println("18. Add Category"); // FARID
-        System.out.println("19. List Categories"); // FARID
+        System.out.println("14. Add Review"); 
+        System.out.println("15. List Reviews"); 
+        System.out.println("16. Make Reservation"); 
+        System.out.println("17. List Reservations"); 
+        System.out.println("18. Add Category"); 
+        System.out.println("19. List Categories"); 
 
-        System.out.println("20. Add Library Event"); // SNIGDHO
-        System.out.println("21. List Library Events"); // SNIGDHO
-        System.out.println("22. Remove Library Event"); // SNIGDHO
-        System.out.println("23. Exit"); // SNIGDHO
+        System.out.println("20. Add Library Event");
+        System.out.println("21. List Library Events");
+        System.out.println("22. Remove Library Event");
+        System.out.println("23. Exit");
 
-        System.out.print("Enter your choice: "); // SNIGDHO
+        System.out.print("Enter your choice: ");
 
-        int choice = getIntInput(); // SNIGDHO
+        int choice = getIntInput();
 
-        try { // SNIGDHO
+        try {
             switch (choice) {
-                // --- ALPEREN ---
+                
                 case 1: addBook(); break;
                 case 2: removeBook(); break;
                 case 3: listAllBooks(); break;
@@ -81,7 +72,7 @@ public static void main(String[] args) { // SNIGDHO
                 case 5: removeDigitalResource(); break;
                 case 6: listDigitalResources(); break;
             
-                // --- CEYLIN ---
+                
                 case 7: addMember(); break;
                 case 8: listAllMembers(); break;
                 case 9: borrowBook(); break;
@@ -90,7 +81,7 @@ public static void main(String[] args) { // SNIGDHO
                 case 12: listFines(); break;
                 case 13: listLoans(); break;
             
-                // --- FARID ---
+                
                 case 14: addReview(); break;
                 case 15: listReviews(); break;
                 case 16: makeReservation(); break;
@@ -98,7 +89,7 @@ public static void main(String[] args) { // SNIGDHO
                 case 18: addCategory(); break;
                 case 19: listCategories(); break;
             
-                // --- SNIGDHO ---
+                
                 case 20: addLibraryEvent(); break;
                 case 21: listLibraryEvents(); break;
                 case 22: removeLibraryEvent(); break;
@@ -109,10 +100,10 @@ public static void main(String[] args) { // SNIGDHO
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } catch (IllegalArgumentException | IllegalStateException e) { // SNIGDHO
-            System.out.println("Oops! " + e.getMessage()); // SNIGDHO
-        } catch (Exception e) { // SNIGDHO
-            System.out.println("Unexpected error: " + e.getMessage()); // SNIGDHO
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            System.out.println("Oops! " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
         }
     }
 }
@@ -327,7 +318,7 @@ public static void main(String[] args) { // SNIGDHO
         }
     }
 
-    private static void removeDigitalResource() { // ALPEREN
+    private static void removeDigitalResource() { 
         System.out.println("\n--- Remove Digital Resource ---");
         System.out.print("Enter resource ID to remove: ");
         int id = getIntInput();
@@ -338,6 +329,7 @@ public static void main(String[] args) { // SNIGDHO
             System.out.println("No digital resource found with that ID.");
         }
     }
+    
     private static void listDigitalResources() {
         System.out.println("\n--- Digital Resources ---");
         if (digitalResources.isEmpty()) {
