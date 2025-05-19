@@ -1,84 +1,134 @@
 import java.util.*;
 
+
+// SNIGDHO
 public class Main {
     private static Library library = new Library();
     private static Librarian librarian = new Librarian(1, "Admin Librarian");
+    private static List<LibraryEvent> events = new ArrayList<>();
+
     private static Scanner scanner = new Scanner(System.in);
 
-    // For simulation purposes
+// SNIGDHO
+    
+// ALPEREN
     private static List<DigitalResource> digitalResources = new ArrayList<>();
-    private static List<Review> reviews = new ArrayList<>();
-    private static List<Loan> loans = new ArrayList<>();
-    private static List<Reservation> reservations = new ArrayList<>();
-    private static List<Fine> fines = new ArrayList<>();
-    private static List<LibraryEvent> events = new ArrayList<>();
-    private static List<Category> categories = new ArrayList<>();
+// ALPEREN
 
-    public static void main(String[] args) {
-        initializeSampleData();
+// FARID 
 
-        boolean running = true;
-        while (running) {
-            System.out.println("\n===== Library Management System =====");
-            System.out.println("1. Add Book");
-            System.out.println("2. Remove Book");
-            System.out.println("3. Add Member");
-            System.out.println("4. Borrow Book");
-            System.out.println("5. Return Book");
-            System.out.println("6. List All Books");
-            System.out.println("7. List All Members");
-            System.out.println("8. Add Digital Resource");
-            System.out.println("9. List Digital Resources");
-            System.out.println("10. Add Review");
-            System.out.println("11. List Reviews");
-            System.out.println("12. Make Reservation");
-            System.out.println("13. List Reservations");
-            System.out.println("14. Pay Fine");
-            System.out.println("15. List Fines");
-            System.out.println("16. Add Library Event");
-            System.out.println("17. List Library Events");
-            System.out.println("18. Add Category");
-            System.out.println("19. List Categories");
-            System.out.println("20. Exit");
-            System.out.print("Enter your choice: ");
+private static List<Review> reviews = new ArrayList<>();
+private static List<Reservation> reservations = new ArrayList<>();
+private static List<Category> categories = new ArrayList<>();
+// FARID 
 
-            int choice = getIntInput();
+// CEYLIN
+
+private static List<Loan> loans = new ArrayList<>();
+private static List<Fine> fines = new ArrayList<>();
+// CEYLIN
+    
+    
+    
+
+
+public static void main(String[] args) { // SNIGDHO
+    initializeSampleData(); // SNIGDHO
+
+    boolean running = true; // SNIGDHO
+    while (running) { // SNIGDHO
+        System.out.println("\n===== Library Management System ====="); // SNIGDHO
+
+        // --- ALPEREN ---
+        System.out.println("1. Add Book"); // ALPEREN
+        System.out.println("2. Remove Book"); // ALPEREN
+        System.out.println("3. List All Books"); // ALPEREN
+        System.out.println("4. Add Digital Resource"); // ALPEREN
+        System.out.println("5. List Digital Resources"); // ALPEREN
+
+        // --- CEYLIN ---
+        System.out.println("6. Add Member"); // CEYLIN
+        System.out.println("7. List All Members"); // CEYLIN
+        System.out.println("8. Borrow Book"); // CEYLIN
+        System.out.println("9. Return Book"); // CEYLIN
+        System.out.println("10. Pay Fine"); // CEYLIN
+        System.out.println("11. List Fines"); // CEYLIN
+
+        // --- FARID ---
+        System.out.println("12. Add Review"); // FARID
+        System.out.println("13. List Reviews"); // FARID
+        System.out.println("14. Make Reservation"); // FARID
+        System.out.println("15. List Reservations"); // FARID
+        System.out.println("16. Add Category"); // FARID
+        System.out.println("17. List Categories"); // FARID
+
+        // --- SNIGDHO ---
+        System.out.println("18. Add Library Event"); // SNIGDHO
+        System.out.println("19. List Library Events"); // SNIGDHO
+        System.out.println("20. Exit"); // SNIGDHO
+
+        System.out.print("Enter your choice: "); // SNIGDHO
+
+        int choice = getIntInput(); // SNIGDHO
+
+        try { // SNIGDHO
+            switch (choice) { // SNIGDHO
+                // --- ALPEREN ---
+                case 1: addBook(); break; // ALPEREN
+                case 2: removeBook(); break; // ALPEREN
+                case 3: listAllBooks(); break; // ALPEREN
+                case 4: addDigitalResource(); break; // ALPEREN
+                case 5: listDigitalResources(); break; // ALPEREN
+
+                // --- CEYLIN ---
+                case 6: addMember(); break; // CEYLIN
+                case 7: listAllMembers(); break; // CEYLIN
+                case 8: borrowBook(); break; // CEYLIN
+                case 9: returnBook(); break; // CEYLIN
+                case 10: payFine(); break; // CEYLIN
+                case 11: listFines(); break; // CEYLIN
+
+                // --- FARID ---
+                case 12: addReview(); break; // FARID
+                case 13: listReviews(); break; // FARID
+                case 14: makeReservation(); break; // FARID
+                case 15: listReservations(); break; // FARID
+                case 16: addCategory(); break; // FARID
+                case 17: listCategories(); break; // FARID
+
+                // --- SNIGDHO ---
+                case 18: addLibraryEvent(); break; // SNIGDHO
+                case 19: listLibraryEvents(); break; // SNIGDHO
+                case 20:
+                    running = false; // SNIGDHO
+                    System.out.println("Exiting system. Goodbye!"); // SNIGDHO
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again."); // SNIGDHO
+            }
+        } catch (IllegalArgumentException | IllegalStateException e) { // SNIGDHO
+            System.out.println("Oops! " + e.getMessage()); // SNIGDHO
+        } catch (Exception e) { // SNIGDHO
+            System.out.println("Unexpected error: " + e.getMessage()); // SNIGDHO
+        }
+    }
+}
+
+
+    // --- SNIGDHO ---
+
+    // Helper method to safely get integer input
+    private static int getIntInput() {
+        while (true) {
             try {
-                switch (choice) {
-                    case 1: addBook(); break;
-                    case 2: removeBook(); break;
-                    case 3: addMember(); break;
-                    case 4: borrowBook(); break;
-                    case 5: returnBook(); break;
-                    case 6: listAllBooks(); break;
-                    case 7: listAllMembers(); break;
-                    case 8: addDigitalResource(); break;
-                    case 9: listDigitalResources(); break;
-                    case 10: addReview(); break;
-                    case 11: listReviews(); break;
-                    case 12: makeReservation(); break;
-                    case 13: listReservations(); break;
-                    case 14: payFine(); break;
-                    case 15: listFines(); break;
-                    case 16: addLibraryEvent(); break;
-                    case 17: listLibraryEvents(); break;
-                    case 18: addCategory(); break;
-                    case 19: listCategories(); break;
-                    case 20:
-                        running = false;
-                        System.out.println("Exiting system. Goodbye!");
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please try again.");
-                }
-            } catch (IllegalArgumentException | IllegalStateException e) {
-                System.out.println("Oops! " + e.getMessage());
+                String input = scanner.nextLine();
+                return Integer.parseInt(input.trim());
             } catch (Exception e) {
-                System.out.println("Unexpected error: " + e.getMessage());
+                System.out.print("Invalid input. Please enter a valid number: ");
             }
         }
     }
-
+    
     private static void initializeSampleData() {
         categories.add(new Category(1, "Classic", "Classic literature"));
         categories.add(new Category(2, "Fiction", "Fictional works"));
@@ -95,6 +145,54 @@ public class Main {
 
         events.add(new LibraryEvent(1, "Book Fair", "Annual book fair event", java.time.LocalDate.now().plusDays(10)));
     }
+
+    private static void addLibraryEvent() {
+        System.out.println("\n--- Add Library Event ---");
+        try {
+            System.out.print("Enter event ID: ");
+            int id = getIntInput();
+            for (LibraryEvent event : events) {
+                if (event.getId() == id) {
+                    System.out.println("An event with this ID already exists.");
+                    return;
+                }
+            }
+            scanner.nextLine();
+            System.out.print("Enter title: ");
+            String title = scanner.nextLine();
+            System.out.print("Enter description: ");
+            String desc = scanner.nextLine();
+            System.out.print("Enter date (YYYY-MM-DD): ");
+            String dateStr = scanner.nextLine();
+            java.time.LocalDate date;
+            try {
+                date = java.time.LocalDate.parse(dateStr);
+            } catch (Exception e) {
+                System.out.println("Invalid date format.");
+                return;
+            }
+            events.add(new LibraryEvent(id, title, desc, date));
+            System.out.println("Library event added successfully!");
+        } catch (Exception e) {
+            System.out.println("Could not add event: " + e.getMessage());
+        }
+    }
+
+    private static void listLibraryEvents() {
+        System.out.println("\n--- Library Events ---");
+        if (events.isEmpty()) {
+            System.out.println("No events found.");
+        } else {
+            for (LibraryEvent event : events) {
+                System.out.println(event.libraryEventInfo());
+            }
+        }
+    }
+
+    // --- SNIGDHO ---
+
+
+    // --- ALPEREN ---
 
     private static void addBook() {
         System.out.println("\n--- Add New Book ---");
@@ -142,6 +240,62 @@ public class Main {
         }
     }
 
+    private static void listAllBooks() {
+        System.out.println("\n--- All Books ---");
+        if (library.getBooks().isEmpty()) {
+            System.out.println("No books in the library.");
+        } else {
+            for (Book book : library.getBooks()) {
+                System.out.println(book);
+            }
+        }
+    }
+
+    private static void addDigitalResource() {
+        System.out.println("\n--- Add Digital Resource ---");
+        try {
+            System.out.print("Enter resource ID: ");
+            int id = getIntInput();
+            for (DigitalResource dr : digitalResources) {
+                if (dr.getId() == id) {
+                    System.out.println("A digital resource with this ID already exists.");
+                    return;
+                }
+            }
+            scanner.nextLine();
+            System.out.print("Enter title: ");
+            String title = scanner.nextLine();
+            System.out.print("Enter author: ");
+            String author = scanner.nextLine();
+            System.out.print("Enter type (e.g., PDF, Video): ");
+            String type = scanner.nextLine();
+            System.out.print("Enter file URL: ");
+            String url = scanner.nextLine();
+
+            digitalResources.add(new DigitalResource(id, title, author, type, url));
+            System.out.println("Digital resource added successfully!");
+        } catch (Exception e) {
+            System.out.println("Could not add digital resource: " + e.getMessage());
+        }
+    }
+
+    private static void listDigitalResources() {
+        System.out.println("\n--- Digital Resources ---");
+        if (digitalResources.isEmpty()) {
+            System.out.println("No digital resources available.");
+        } else {
+            for (DigitalResource dr : digitalResources) {
+                System.out.println(dr);
+            }
+        }
+    }
+
+
+    // --- ALPEREN ---
+
+
+    // --- CEYLIN ---
+
     private static void addMember() {
         System.out.println("\n--- Add New Member ---");
         try {
@@ -161,6 +315,17 @@ public class Main {
             System.out.println("Member added successfully!");
         } catch (Exception e) {
             System.out.println("Could not add member: " + e.getMessage());
+        }
+    }
+
+    private static void listAllMembers() {
+        System.out.println("\n--- All Members ---");
+        if (library.getMembers().isEmpty()) {
+            System.out.println("No members in the library.");
+        } else {
+            for (Member member : library.getMembers()) {
+                System.out.println(member);
+            }
         }
     }
 
@@ -216,66 +381,45 @@ public class Main {
         }
     }
 
-    private static void listAllBooks() {
-        System.out.println("\n--- All Books ---");
-        if (library.getBooks().isEmpty()) {
-            System.out.println("No books in the library.");
-        } else {
-            for (Book book : library.getBooks()) {
-                System.out.println(book);
-            }
-        }
-    }
-
-    private static void listAllMembers() {
-        System.out.println("\n--- All Members ---");
-        if (library.getMembers().isEmpty()) {
-            System.out.println("No members in the library.");
-        } else {
-            for (Member member : library.getMembers()) {
-                System.out.println(member);
-            }
-        }
-    }
-
-    private static void addDigitalResource() {
-        System.out.println("\n--- Add Digital Resource ---");
+    private static void payFine() {
+        System.out.println("\n--- Pay Fine ---");
         try {
-            System.out.print("Enter resource ID: ");
-            int id = getIntInput();
-            for (DigitalResource dr : digitalResources) {
-                if (dr.getId() == id) {
-                    System.out.println("A digital resource with this ID already exists.");
-                    return;
+            System.out.print("Enter member ID: ");
+            int memberId = getIntInput();
+            boolean found = false;
+            for (Fine fine : fines) {
+                if (fine.getMemberId() == memberId && fine.getAmount() > 0) {
+                    System.out.println("Outstanding fine: " + fine.getAmount());
+                    System.out.print("Enter payment amount: ");
+                    double payment = Double.parseDouble(scanner.nextLine());
+                    fine.payFine(payment);
+                    System.out.println("Fine paid successfully!");
+                    found = true;
                 }
             }
-            scanner.nextLine();
-            System.out.print("Enter title: ");
-            String title = scanner.nextLine();
-            System.out.print("Enter author: ");
-            String author = scanner.nextLine();
-            System.out.print("Enter type (e.g., PDF, Video): ");
-            String type = scanner.nextLine();
-            System.out.print("Enter file URL: ");
-            String url = scanner.nextLine();
-
-            digitalResources.add(new DigitalResource(id, title, author, type, url));
-            System.out.println("Digital resource added successfully!");
+            if (!found) {
+                System.out.println("No outstanding fines for this member.");
+            }
         } catch (Exception e) {
-            System.out.println("Could not add digital resource: " + e.getMessage());
+            System.out.println("Could not pay fine: " + e.getMessage());
         }
     }
 
-    private static void listDigitalResources() {
-        System.out.println("\n--- Digital Resources ---");
-        if (digitalResources.isEmpty()) {
-            System.out.println("No digital resources available.");
+    private static void listFines() {
+        System.out.println("\n--- Fines ---");
+        if (fines.isEmpty()) {
+            System.out.println("No fines found.");
         } else {
-            for (DigitalResource dr : digitalResources) {
-                System.out.println(dr);
+            for (Fine fine : fines) {
+                System.out.println(fine);
             }
         }
     }
+
+    // --- CEYLIN ---
+
+
+    // --- FARID ---
 
     private static void addReview() {
         System.out.println("\n--- Add Review ---");
@@ -379,84 +523,6 @@ public class Main {
         }
     }
 
-    private static void payFine() {
-        System.out.println("\n--- Pay Fine ---");
-        try {
-            System.out.print("Enter member ID: ");
-            int memberId = getIntInput();
-            boolean found = false;
-            for (Fine fine : fines) {
-                if (fine.getMemberId() == memberId && fine.getAmount() > 0) {
-                    System.out.println("Outstanding fine: " + fine.getAmount());
-                    System.out.print("Enter payment amount: ");
-                    double payment = Double.parseDouble(scanner.nextLine());
-                    fine.payFine(payment);
-                    System.out.println("Fine paid successfully!");
-                    found = true;
-                }
-            }
-            if (!found) {
-                System.out.println("No outstanding fines for this member.");
-            }
-        } catch (Exception e) {
-            System.out.println("Could not pay fine: " + e.getMessage());
-        }
-    }
-
-    private static void listFines() {
-        System.out.println("\n--- Fines ---");
-        if (fines.isEmpty()) {
-            System.out.println("No fines found.");
-        } else {
-            for (Fine fine : fines) {
-                System.out.println(fine);
-            }
-        }
-    }
-
-    private static void addLibraryEvent() {
-        System.out.println("\n--- Add Library Event ---");
-        try {
-            System.out.print("Enter event ID: ");
-            int id = getIntInput();
-            for (LibraryEvent event : events) {
-                if (event.getId() == id) {
-                    System.out.println("An event with this ID already exists.");
-                    return;
-                }
-            }
-            scanner.nextLine();
-            System.out.print("Enter title: ");
-            String title = scanner.nextLine();
-            System.out.print("Enter description: ");
-            String desc = scanner.nextLine();
-            System.out.print("Enter date (YYYY-MM-DD): ");
-            String dateStr = scanner.nextLine();
-            java.time.LocalDate date;
-            try {
-                date = java.time.LocalDate.parse(dateStr);
-            } catch (Exception e) {
-                System.out.println("Invalid date format.");
-                return;
-            }
-            events.add(new LibraryEvent(id, title, desc, date));
-            System.out.println("Library event added successfully!");
-        } catch (Exception e) {
-            System.out.println("Could not add event: " + e.getMessage());
-        }
-    }
-
-    private static void listLibraryEvents() {
-        System.out.println("\n--- Library Events ---");
-        if (events.isEmpty()) {
-            System.out.println("No events found.");
-        } else {
-            for (LibraryEvent event : events) {
-                System.out.println(event.libraryEventInfo());
-            }
-        }
-    }
-
     private static void addCategory() {
         System.out.println("\n--- Add Category ---");
         try {
@@ -491,15 +557,11 @@ public class Main {
         }
     }
 
-    // Helper method to safely get integer input
-    private static int getIntInput() {
-        while (true) {
-            try {
-                String input = scanner.nextLine();
-                return Integer.parseInt(input.trim());
-            } catch (Exception e) {
-                System.out.print("Invalid input. Please enter a valid number: ");
-            }
-        }
-    }
+    // --- FARID ---
+
+
+
+
+
+
 }
