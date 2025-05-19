@@ -38,25 +38,27 @@ public static void main(String[] args) {
         System.out.println("6. List Digital Resources"); 
 
         System.out.println("7. Add Member"); 
-        System.out.println("8. List All Members"); 
-        System.out.println("9. Borrow Book"); 
-        System.out.println("10. Return Book"); 
-        System.out.println("11. Pay Fine"); 
-        System.out.println("12. List Fines"); 
+        System.out.println("8. Remove Member"); 
+        System.out.println("9. List All Members"); 
+        System.out.println("10. Borrow Book"); 
+        System.out.println("11. Return Book"); 
+        System.out.println("12. Assign Fine"); 
+        System.out.println("13. Pay Fine"); 
+        System.out.println("14. List Fines"); 
 
-        System.out.println("13. List Loans"); 
+        System.out.println("15. List Loans"); 
 
-        System.out.println("14. Add Review"); 
-        System.out.println("15. List Reviews"); 
-        System.out.println("16. Make Reservation"); 
-        System.out.println("17. List Reservations"); 
-        System.out.println("18. Add Category"); 
-        System.out.println("19. List Categories"); 
+        System.out.println("16. Add Review"); 
+        System.out.println("17. List Reviews"); 
+        System.out.println("18. Make Reservation"); 
+        System.out.println("19. List Reservations"); 
+        System.out.println("20. Add Category"); 
+        System.out.println("21. List Categories"); 
 
-        System.out.println("20. Add Library Event");
-        System.out.println("21. List Library Events");
-        System.out.println("22. Remove Library Event");
-        System.out.println("23. Exit");
+        System.out.println("22. Add Library Event");
+        System.out.println("23. List Library Events");
+        System.out.println("24. Remove Library Event");
+        System.out.println("25. Exit");
 
         System.out.print("Enter your choice: ");
 
@@ -64,36 +66,35 @@ public static void main(String[] args) {
 
         try {
             switch (choice) {
-                
                 case 1: addBook(); break;
                 case 2: removeBook(); break;
                 case 3: listAllBooks(); break;
                 case 4: addDigitalResource(); break;
                 case 5: removeDigitalResource(); break;
                 case 6: listDigitalResources(); break;
-            
-                
+
                 case 7: addMember(); break;
-                case 8: listAllMembers(); break;
-                case 9: borrowBook(); break;
-                case 10: returnBook(); break;
-                case 11: payFine(); break;
-                case 12: listFines(); break;
-                case 13: listLoans(); break;
-            
-                
-                case 14: addReview(); break;
-                case 15: listReviews(); break;
-                case 16: makeReservation(); break;
-                case 17: listReservations(); break;
-                case 18: addCategory(); break;
-                case 19: listCategories(); break;
-            
-                
-                case 20: addLibraryEvent(); break;
-                case 21: listLibraryEvents(); break;
-                case 22: removeLibraryEvent(); break;
-                case 23:
+                case 8: removeMember(); break; // CEYLIN - Added
+                case 9: listAllMembers(); break;
+                case 10: borrowBook(); break;
+                case 11: returnBook(); break;
+                case 12: assignFine(); break; // CEYLIN - Added
+                case 13: payFine(); break;
+                case 14: listFines(); break;
+
+                case 15: listLoans(); break;
+
+                case 16: addReview(); break;
+                case 17: listReviews(); break;
+                case 18: makeReservation(); break;
+                case 19: listReservations(); break;
+                case 20: addCategory(); break;
+                case 21: listCategories(); break;
+
+                case 22: addLibraryEvent(); break;
+                case 23: listLibraryEvents(); break;
+                case 24: removeLibraryEvent(); break;
+                case 25:
                     running = false;
                     System.out.println("Exiting system. Goodbye!");
                     break;
@@ -195,38 +196,6 @@ public static void main(String[] args) {
         }
     }
     
-    private static void addMember() {
-        System.out.println("\n--- Add New Member ---");
-        try {
-            System.out.print("Enter member ID: ");
-            int id = getIntInput();
-            if (library.getMember(id) != null) {
-                System.out.println("A member with this ID already exists.");
-                return;
-            }
-            scanner.nextLine();
-            System.out.print("Enter name: ");
-            String name = scanner.nextLine();
-            System.out.print("Enter email: ");
-            String email = scanner.nextLine();
-            Member newMember = new Member(id, name, email);
-            library.addMember(newMember);
-            System.out.println("Member added successfully!");
-        } catch (Exception e) {
-            System.out.println("Could not add member: " + e.getMessage());
-        }
-    }
-
-    private static void listAllMembers() {
-        System.out.println("\n--- All Members ---");
-        if (library.getMembers().isEmpty()) {
-            System.out.println("No members in the library.");
-        } else {
-            for (Member member : library.getMembers()) {
-                System.out.println(member);
-            }
-        }
-    }
 
     // --- SNIGDHO ---
 
@@ -452,6 +421,68 @@ public static void main(String[] args) {
         } else {
             for (Fine fine : fines) {
                 System.out.println(fine);
+            }
+        }
+    }
+
+
+    private static void assignFine() {
+        System.out.println("\n--- Assign Fine ---");
+        System.out.print("Enter member ID: ");
+        int memberId = getIntInput();
+        System.out.print("Enter fine amount: ");
+        double amount = Double.parseDouble(scanner.nextLine());
+        fines.add(new Fine(memberId, amount));
+        System.out.println("Fine assigned.");
+    }
+
+
+    private static void addMember() {
+        System.out.println("\n--- Add New Member ---");
+        try {
+            System.out.print("Enter member ID: ");
+            int id = getIntInput();
+            if (library.getMember(id) != null) {
+                System.out.println("A member with this ID already exists.");
+                return;
+            }
+            scanner.nextLine();
+            System.out.print("Enter name: ");
+            String name = scanner.nextLine();
+            System.out.print("Enter email: ");
+            String email = scanner.nextLine();
+            Member newMember = new Member(id, name, email);
+            library.addMember(newMember);
+            System.out.println("Member added successfully!");
+        } catch (Exception e) {
+            System.out.println("Could not add member: " + e.getMessage());
+        }
+    }
+
+    private static void removeMember() {
+        System.out.println("\n--- Remove Member ---");
+        System.out.print("Enter member ID to remove: ");
+        int id = getIntInput();
+        Member member = library.getMember(id);
+        if (member != null) {
+            library.removeMember(member);
+            // Optionally, clean up related data:
+            loans.removeIf(loan -> loan.getMemberId() == id);
+            fines.removeIf(fine -> fine.getMemberId() == id);
+            reservations.removeIf(res -> res.getMemberId() == id);
+            System.out.println("Member and related records removed successfully!");
+        } else {
+            System.out.println("Member not found with ID: " + id);
+        }
+    }
+
+    private static void listAllMembers() {
+        System.out.println("\n--- All Members ---");
+        if (library.getMembers().isEmpty()) {
+            System.out.println("No members in the library.");
+        } else {
+            for (Member member : library.getMembers()) {
+                System.out.println(member);
             }
         }
     }

@@ -51,6 +51,15 @@ public class Library {
         members.add(member);
     }
 
+    public void removeMember(Member member) {
+        if (member == null) {
+            throw new IllegalArgumentException("Member cannot be null.");
+        }
+        if (!members.remove(member)) {
+            throw new IllegalArgumentException("Member not found in the library.");
+        }
+    }
+
     public Member getMember(int id) {
         for (Member member : members) {
             if (member.getId() == id) {
