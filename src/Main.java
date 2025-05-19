@@ -39,72 +39,75 @@ public static void main(String[] args) { // SNIGDHO
     while (running) { // SNIGDHO
         System.out.println("\n===== Library Management System ====="); // SNIGDHO
 
-        // --- ALPEREN ---
         System.out.println("1. Add Book"); // ALPEREN
         System.out.println("2. Remove Book"); // ALPEREN
         System.out.println("3. List All Books"); // ALPEREN
         System.out.println("4. Add Digital Resource"); // ALPEREN
-        System.out.println("5. List Digital Resources"); // ALPEREN
+        System.out.println("5. Remove Digital Resource"); // ALPEREN
+        System.out.println("6. List Digital Resources"); // ALPEREN
 
-        // --- CEYLIN ---
-        System.out.println("6. Add Member"); // CEYLIN
-        System.out.println("7. List All Members"); // CEYLIN
-        System.out.println("8. Borrow Book"); // CEYLIN
-        System.out.println("9. Return Book"); // CEYLIN
-        System.out.println("10. Pay Fine"); // CEYLIN
-        System.out.println("11. List Fines"); // CEYLIN
+        System.out.println("7. Add Member"); // CEYLIN
+        System.out.println("8. List All Members"); // CEYLIN
+        System.out.println("9. Borrow Book"); // CEYLIN
+        System.out.println("10. Return Book"); // CEYLIN
+        System.out.println("11. Pay Fine"); // CEYLIN
+        System.out.println("12. List Fines"); // CEYLIN
 
-        // --- FARID ---
-        System.out.println("12. Add Review"); // FARID
-        System.out.println("13. List Reviews"); // FARID
-        System.out.println("14. Make Reservation"); // FARID
-        System.out.println("15. List Reservations"); // FARID
-        System.out.println("16. Add Category"); // FARID
-        System.out.println("17. List Categories"); // FARID
+        System.out.println("13. List Loans"); // CEYLIN
 
-        // --- SNIGDHO ---
-        System.out.println("18. Add Library Event"); // SNIGDHO
-        System.out.println("19. List Library Events"); // SNIGDHO
-        System.out.println("20. Exit"); // SNIGDHO
+        System.out.println("14. Add Review"); // FARID
+        System.out.println("15. List Reviews"); // FARID
+        System.out.println("16. Make Reservation"); // FARID
+        System.out.println("17. List Reservations"); // FARID
+        System.out.println("18. Add Category"); // FARID
+        System.out.println("19. List Categories"); // FARID
+
+        System.out.println("20. Add Library Event"); // SNIGDHO
+        System.out.println("21. List Library Events"); // SNIGDHO
+        System.out.println("22. Remove Library Event"); // SNIGDHO
+        System.out.println("23. Exit"); // SNIGDHO
 
         System.out.print("Enter your choice: "); // SNIGDHO
 
         int choice = getIntInput(); // SNIGDHO
 
         try { // SNIGDHO
-            switch (choice) { // SNIGDHO
+            switch (choice) {
                 // --- ALPEREN ---
-                case 1: addBook(); break; // ALPEREN
-                case 2: removeBook(); break; // ALPEREN
-                case 3: listAllBooks(); break; // ALPEREN
-                case 4: addDigitalResource(); break; // ALPEREN
-                case 5: listDigitalResources(); break; // ALPEREN
-
+                case 1: addBook(); break;
+                case 2: removeBook(); break;
+                case 3: listAllBooks(); break;
+                case 4: addDigitalResource(); break;
+                case 5: removeDigitalResource(); break;
+                case 6: listDigitalResources(); break;
+            
                 // --- CEYLIN ---
-                case 6: addMember(); break; // CEYLIN
-                case 7: listAllMembers(); break; // CEYLIN
-                case 8: borrowBook(); break; // CEYLIN
-                case 9: returnBook(); break; // CEYLIN
-                case 10: payFine(); break; // CEYLIN
-                case 11: listFines(); break; // CEYLIN
-
+                case 7: addMember(); break;
+                case 8: listAllMembers(); break;
+                case 9: borrowBook(); break;
+                case 10: returnBook(); break;
+                case 11: payFine(); break;
+                case 12: listFines(); break;
+                case 13: listLoans(); break;
+            
                 // --- FARID ---
-                case 12: addReview(); break; // FARID
-                case 13: listReviews(); break; // FARID
-                case 14: makeReservation(); break; // FARID
-                case 15: listReservations(); break; // FARID
-                case 16: addCategory(); break; // FARID
-                case 17: listCategories(); break; // FARID
-
+                case 14: addReview(); break;
+                case 15: listReviews(); break;
+                case 16: makeReservation(); break;
+                case 17: listReservations(); break;
+                case 18: addCategory(); break;
+                case 19: listCategories(); break;
+            
                 // --- SNIGDHO ---
-                case 18: addLibraryEvent(); break; // SNIGDHO
-                case 19: listLibraryEvents(); break; // SNIGDHO
-                case 20:
-                    running = false; // SNIGDHO
-                    System.out.println("Exiting system. Goodbye!"); // SNIGDHO
+                case 20: addLibraryEvent(); break;
+                case 21: listLibraryEvents(); break;
+                case 22: removeLibraryEvent(); break;
+                case 23:
+                    running = false;
+                    System.out.println("Exiting system. Goodbye!");
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again."); // SNIGDHO
+                    System.out.println("Invalid choice. Please try again.");
             }
         } catch (IllegalArgumentException | IllegalStateException e) { // SNIGDHO
             System.out.println("Oops! " + e.getMessage()); // SNIGDHO
@@ -185,6 +188,51 @@ public static void main(String[] args) { // SNIGDHO
         } else {
             for (LibraryEvent event : events) {
                 System.out.println(event.libraryEventInfo());
+            }
+        }
+    }
+
+    private static void removeLibraryEvent() {
+        System.out.println("\n--- Remove Library Event ---");
+        System.out.print("Enter event ID to remove: ");
+        int id = getIntInput();
+        boolean removed = events.removeIf(event -> event.getId() == id);
+        if (removed) {
+            System.out.println("Library event removed successfully!");
+        } else {
+            System.out.println("No library event found with that ID.");
+        }
+    }
+    
+    private static void addMember() {
+        System.out.println("\n--- Add New Member ---");
+        try {
+            System.out.print("Enter member ID: ");
+            int id = getIntInput();
+            if (library.getMember(id) != null) {
+                System.out.println("A member with this ID already exists.");
+                return;
+            }
+            scanner.nextLine();
+            System.out.print("Enter name: ");
+            String name = scanner.nextLine();
+            System.out.print("Enter email: ");
+            String email = scanner.nextLine();
+            Member newMember = new Member(id, name, email);
+            library.addMember(newMember);
+            System.out.println("Member added successfully!");
+        } catch (Exception e) {
+            System.out.println("Could not add member: " + e.getMessage());
+        }
+    }
+
+    private static void listAllMembers() {
+        System.out.println("\n--- All Members ---");
+        if (library.getMembers().isEmpty()) {
+            System.out.println("No members in the library.");
+        } else {
+            for (Member member : library.getMembers()) {
+                System.out.println(member);
             }
         }
     }
@@ -279,6 +327,17 @@ public static void main(String[] args) { // SNIGDHO
         }
     }
 
+    private static void removeDigitalResource() { // ALPEREN
+        System.out.println("\n--- Remove Digital Resource ---");
+        System.out.print("Enter resource ID to remove: ");
+        int id = getIntInput();
+        boolean removed = digitalResources.removeIf(dr -> dr.getId() == id);
+        if (removed) {
+            System.out.println("Digital resource removed successfully!");
+        } else {
+            System.out.println("No digital resource found with that ID.");
+        }
+    }
     private static void listDigitalResources() {
         System.out.println("\n--- Digital Resources ---");
         if (digitalResources.isEmpty()) {
@@ -296,38 +355,6 @@ public static void main(String[] args) { // SNIGDHO
 
     // --- CEYLIN ---
 
-    private static void addMember() {
-        System.out.println("\n--- Add New Member ---");
-        try {
-            System.out.print("Enter member ID: ");
-            int id = getIntInput();
-            if (library.getMember(id) != null) {
-                System.out.println("A member with this ID already exists.");
-                return;
-            }
-            scanner.nextLine();
-            System.out.print("Enter name: ");
-            String name = scanner.nextLine();
-            System.out.print("Enter email: ");
-            String email = scanner.nextLine();
-            Member newMember = new Member(id, name, email);
-            library.addMember(newMember);
-            System.out.println("Member added successfully!");
-        } catch (Exception e) {
-            System.out.println("Could not add member: " + e.getMessage());
-        }
-    }
-
-    private static void listAllMembers() {
-        System.out.println("\n--- All Members ---");
-        if (library.getMembers().isEmpty()) {
-            System.out.println("No members in the library.");
-        } else {
-            for (Member member : library.getMembers()) {
-                System.out.println(member);
-            }
-        }
-    }
 
     private static void borrowBook() {
         System.out.println("\n--- Borrow Book ---");
@@ -336,10 +363,10 @@ public static void main(String[] args) { // SNIGDHO
             int memberId = getIntInput();
             System.out.print("Enter book ID: ");
             int bookId = getIntInput();
-
+    
             Member member = library.getMember(memberId);
             Book book = library.getBook(bookId);
-
+    
             if (member == null) {
                 System.out.println("Member not found.");
                 return;
@@ -349,6 +376,8 @@ public static void main(String[] args) { // SNIGDHO
                 return;
             }
             member.borrowBook(book);
+            // Add Loan record
+            loans.add(new Loan(bookId, memberId, java.time.LocalDate.now(), null));
             System.out.println("Book borrowed successfully!");
         } catch (Exception e) {
             System.out.println("Could not borrow book: " + e.getMessage());
@@ -357,15 +386,16 @@ public static void main(String[] args) { // SNIGDHO
 
     private static void returnBook() {
         System.out.println("\n--- Return Book ---");
+
         try {
             System.out.print("Enter member ID: ");
             int memberId = getIntInput();
             System.out.print("Enter book ID: ");
             int bookId = getIntInput();
-
+    
             Member member = library.getMember(memberId);
             Book book = library.getBook(bookId);
-
+    
             if (member == null) {
                 System.out.println("Member not found.");
                 return;
@@ -375,9 +405,27 @@ public static void main(String[] args) { // SNIGDHO
                 return;
             }
             member.returnBook(book);
+            for (Loan loan : loans) {
+                if (loan.getBookId() == bookId && loan.getMemberId() == memberId && loan.getReturnDate() == null) {
+                    loan.setReturnDate(java.time.LocalDate.now());
+                    break;
+                }
+            }
+
             System.out.println("Book returned successfully!");
         } catch (Exception e) {
             System.out.println("Could not return book: " + e.getMessage());
+        }
+    }
+
+    private static void listLoans() {
+        System.out.println("\n--- Loans ---");
+        if (loans.isEmpty()) {
+            System.out.println("No loans found.");
+        } else {
+            for (Loan loan : loans) {
+                System.out.println(loan.loanDetails());
+            }
         }
     }
 

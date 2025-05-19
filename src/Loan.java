@@ -31,6 +31,12 @@ public class Loan {
     public int getMemberId() { return memberId; }
     public LocalDate getBorrowDate() { return borrowDate; }
     public LocalDate getReturnDate() { return returnDate; }
+    public void setReturnDate(LocalDate date) {
+        if (date != null && date.isBefore(borrowDate)) {
+            throw new IllegalArgumentException("Return date cannot be before borrow date.");
+        }
+        this.returnDate = date;
+    }
 
     public String loanDetails() {
         return "Loan: Book ID: " + bookId + ", Member ID: " + memberId +
