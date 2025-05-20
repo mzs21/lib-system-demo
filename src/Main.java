@@ -356,6 +356,32 @@ private static void removeLibraryEvent() {
         }
     }
 
+    
+    private static void listCategories() {
+        System.out.println("\n--- Categories ---");
+    
+        Map<String, Integer> totalBooksPerCategory = new HashMap<>();
+        Map<String, Integer> availableCopiesPerCategory = new HashMap<>();
+    
+        for (Book book : library.getBooks()) {
+            String category = book.getCategoryName();
+            totalBooksPerCategory.put(category, totalBooksPerCategory.getOrDefault(category, 0) + 1);
+            availableCopiesPerCategory.put(category,
+                    availableCopiesPerCategory.getOrDefault(category, 0) + book.getCopiesAvailable());
+        }
+    
+        if (totalBooksPerCategory.isEmpty()) {
+            System.out.println("No categories found.");
+        } else {
+            for (Map.Entry<String, Integer> entry : totalBooksPerCategory.entrySet()) {
+                String category = entry.getKey();
+                int totalBooks = entry.getValue();
+                int availableCopies = availableCopiesPerCategory.get(category);
+                System.out.printf("Category: %s | Total Books: %d | Available Copies: %d\n", category, totalBooks, availableCopies);
+            }
+        }
+    }
+
 
     // --- ALPEREN ---
 
@@ -455,63 +481,6 @@ private static void removeLibraryEvent() {
         }
     }
 
-    private static void payFine() {
-        System.out.println("\n--- Pay Fine ---");
-        try {
-            System.out.print("Enter member ID: ");
-            int memberId = getIntInput();
-
-            
-            if (memberId <= 0) {
-                throw new IllegalArgumentException("Member ID must be a positive number.");
-            }
-
-            boolean found = false;
-            for (Fine fine : fines) {
-                if (fine.getMemberId() == memberId && fine.getAmount() > 0) {
-                    System.out.println("Outstanding fine: " + fine.getAmount());
-                    System.out.print("Enter payment amount: ");
-                    double payment = Double.parseDouble(scanner.nextLine());
-                    fine.payFine(payment);
-                    System.out.println("Fine paid successfully!");
-                    found = true;
-                }
-            }
-            if (!found) {
-                System.out.println("No outstanding fines for this member.");
-            }
-        } catch (Exception e) {
-            System.out.println("Could not pay fine: " + e.getMessage());
-        }
-    }
-
-    private static void listFines() {
-        System.out.println("\n--- Fines ---");
-        if (fines.isEmpty()) {
-            System.out.println("No fines found.");
-        } else {
-            for (Fine fine : fines) {
-                System.out.println(fine);
-            }
-        }
-    }
-
-
-    private static void assignFine() {
-        System.out.println("\n--- Assign Fine ---");
-        System.out.print("Enter member ID: ");
-        int memberId = getIntInput();
-
-        
-        if (memberId <= 0) {
-            throw new IllegalArgumentException("Member ID must be a positive number.");
-        }
-
-        System.out.print("Enter fine amount: ");
-        double amount = Double.parseDouble(scanner.nextLine());
-        fines.add(new Fine(memberId, amount));
-        System.out.println("Fine assigned.");
-    }
 
 
     private static void addMember() {
@@ -713,29 +682,62 @@ private static void addReview() {
     }
 
 
-    private static void listCategories() {
-        System.out.println("\n--- Categories ---");
-    
-        Map<String, Integer> totalBooksPerCategory = new HashMap<>();
-        Map<String, Integer> availableCopiesPerCategory = new HashMap<>();
-    
-        for (Book book : library.getBooks()) {
-            String category = book.getCategoryName();
-            totalBooksPerCategory.put(category, totalBooksPerCategory.getOrDefault(category, 0) + 1);
-            availableCopiesPerCategory.put(category,
-                    availableCopiesPerCategory.getOrDefault(category, 0) + book.getCopiesAvailable());
+    private static void payFine() {
+        System.out.println("\n--- Pay Fine ---");
+        try {
+            System.out.print("Enter member ID: ");
+            int memberId = getIntInput();
+
+            
+            if (memberId <= 0) {
+                throw new IllegalArgumentException("Member ID must be a positive number.");
+            }
+
+            boolean found = false;
+            for (Fine fine : fines) {
+                if (fine.getMemberId() == memberId && fine.getAmount() > 0) {
+                    System.out.println("Outstanding fine: " + fine.getAmount());
+                    System.out.print("Enter payment amount: ");
+                    double payment = Double.parseDouble(scanner.nextLine());
+                    fine.payFine(payment);
+                    System.out.println("Fine paid successfully!");
+                    found = true;
+                }
+            }
+            if (!found) {
+                System.out.println("No outstanding fines for this member.");
+            }
+        } catch (Exception e) {
+            System.out.println("Could not pay fine: " + e.getMessage());
         }
-    
-        if (totalBooksPerCategory.isEmpty()) {
-            System.out.println("No categories found.");
+    }
+
+    private static void listFines() {
+        System.out.println("\n--- Fines ---");
+        if (fines.isEmpty()) {
+            System.out.println("No fines found.");
         } else {
-            for (Map.Entry<String, Integer> entry : totalBooksPerCategory.entrySet()) {
-                String category = entry.getKey();
-                int totalBooks = entry.getValue();
-                int availableCopies = availableCopiesPerCategory.get(category);
-                System.out.printf("Category: %s | Total Books: %d | Available Copies: %d\n", category, totalBooks, availableCopies);
+            for (Fine fine : fines) {
+                System.out.println(fine);
             }
         }
+    }
+
+
+    private static void assignFine() {
+        System.out.println("\n--- Assign Fine ---");
+        System.out.print("Enter member ID: ");
+        int memberId = getIntInput();
+
+        
+        if (memberId <= 0) {
+            throw new IllegalArgumentException("Member ID must be a positive number.");
+        }
+
+        System.out.print("Enter fine amount: ");
+        double amount = Double.parseDouble(scanner.nextLine());
+        fines.add(new Fine(memberId, amount));
+        System.out.println("Fine assigned.");
     }
 
     // --- FARID ---
