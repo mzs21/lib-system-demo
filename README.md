@@ -8,7 +8,7 @@ This project is a comprehensive **Library Management System** designed to manage
 
 ---
 
-### Members
+### Group - 11: Members
 | Name                     | Department             |
 |--------------------------|------------------------|
 | Ceylin Oner              | Statistics             |
