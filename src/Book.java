@@ -1,12 +1,12 @@
 public class Book extends LibraryResource {
-    private String genre;
+    private String categoryName;
     private int publicationYear;
     private int copiesAvailable;
 
-    public Book(int id, String title, String author, String genre, int publicationYear, int copiesAvailable) {
+    public Book(int id, String title, String author, String categoryName, int publicationYear, int copiesAvailable) {
         super(id, title, author);
-        if (genre == null || genre.trim().isEmpty()) {
-            throw new IllegalArgumentException("Genre cannot be null or empty.");
+        if (categoryName == null || categoryName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Category name cannot be null or empty.");
         }
         if (publicationYear < 0) {
             throw new IllegalArgumentException("Publication year cannot be negative.");
@@ -14,12 +14,12 @@ public class Book extends LibraryResource {
         if (copiesAvailable < 0) {
             throw new IllegalArgumentException("Copies available cannot be negative.");
         }
-        this.genre = genre;
+        this.categoryName = categoryName;
         this.publicationYear = publicationYear;
         this.copiesAvailable = copiesAvailable;
     }
 
-    public String getGenre() { return genre; }
+    public String getCategoryName() { return categoryName; }
     public int getPublicationYear() { return publicationYear; }
     public int getCopiesAvailable() { return copiesAvailable; }
 
@@ -35,8 +35,10 @@ public class Book extends LibraryResource {
     }
 
     @Override
-    public String printInfo() {
-        return "Book: " + title + ", Author: " + author + ", Genre: " + genre +
-               ", P. Year: " + publicationYear + ", Available copies: " + copiesAvailable + ", ID: " + id;
+    public String toString() {
+        return "Book: " + title + ", Author: " + author +
+               ", Category: " + categoryName +
+               ", P. Year: " + publicationYear +
+               ", Available copies: " + copiesAvailable + ", ID: " + id;
     }
 }
