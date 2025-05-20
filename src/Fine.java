@@ -27,8 +27,8 @@ public class Fine {
         System.out.println("Payment successful. Remaining fine: " + amount);
     }
 
-    
-    public String printInfo() {
+    @Override
+    public String toString() {
         return "Fine - Member ID: " + memberId + ", Amount: " + amount;
     }
 }
