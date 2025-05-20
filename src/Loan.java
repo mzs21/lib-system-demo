@@ -1,11 +1,11 @@
 import java.time.LocalDate;
 
-// Association - Loan connects Book and Member
 public class Loan {
     private int bookId;
     private int memberId;
     private LocalDate borrowDate;
     private LocalDate returnDate;
+    private LocalDate dueDate;
 
     public Loan(int bookId, int memberId, LocalDate borrowDate, LocalDate returnDate) {
         if (bookId <= 0) {
@@ -20,10 +20,12 @@ public class Loan {
         if (returnDate != null && returnDate.isBefore(borrowDate)) {
             throw new IllegalArgumentException("Return date cannot be before borrow date.");
         }
+
         this.bookId = bookId;
         this.memberId = memberId;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
+        this.dueDate = borrowDate.plusDays(7); // Set due date to 7 days after borrow date
     }
 
     // Getters
@@ -31,6 +33,8 @@ public class Loan {
     public int getMemberId() { return memberId; }
     public LocalDate getBorrowDate() { return borrowDate; }
     public LocalDate getReturnDate() { return returnDate; }
+    public LocalDate getDueDate() { return dueDate; }
+
     public void setReturnDate(LocalDate date) {
         if (date != null && date.isBefore(borrowDate)) {
             throw new IllegalArgumentException("Return date cannot be before borrow date.");
@@ -39,7 +43,10 @@ public class Loan {
     }
 
     public String loanDetails() {
-        return "Loan: Book ID: " + bookId + ", Member ID: " + memberId +
-               ", Borrowed: " + borrowDate + ", Return: " + returnDate;
+        return "Loan: Book ID: " + bookId +
+               ", Member ID: " + memberId +
+               ", Borrowed: " + borrowDate +
+               ", Due: " + dueDate +
+               ", Return: " + (returnDate != null ? returnDate.toString() : "Not returned yet");
     }
 }
