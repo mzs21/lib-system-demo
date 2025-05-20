@@ -22,5 +22,5 @@ public abstract class LibraryResource {
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
 
-    public abstract String toString();
+    public abstract String printInfo();
 }

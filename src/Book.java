@@ -35,7 +35,7 @@ public class Book extends LibraryResource {
     }
 
     @Override
-    public String toString() {
+    public String printInfo() {
         return "Book: " + title + ", Author: " + author + ", Genre: " + genre +
                ", P. Year: " + publicationYear + ", Available copies: " + copiesAvailable + ", ID: " + id;
     }

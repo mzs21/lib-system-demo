@@ -22,7 +22,7 @@ public class DigitalResource extends LibraryResource {
     }
 
     @Override
-    public String toString() {
+    public String printInfo() {
         return "DigitalResource: " + title + ", Author: " + author + ", Type: " + type +
                ", URL: " + fileUrl + ", ID: " + id;
     }

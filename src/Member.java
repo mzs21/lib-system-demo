@@ -46,8 +46,8 @@ public class Member extends Person {
         borrowedBooks.remove(book);
     }
 
-    @Override
-    public String toString() {
+    
+    public String printInfo() {
         return "Member: " + name + ", Email: " + email + ", Borrowed books: " + borrowedBooks.size() + ", ID: " + id;
     }
 }

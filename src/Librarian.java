@@ -24,8 +24,8 @@ public class Librarian extends Person {
         library.removeBook(book);
     }
 
-    @Override
-    public String toString() {
+    
+    public String printInfo() {
         return "Librarian - ID:" + id + ", Name=" + name;
     }
 }
