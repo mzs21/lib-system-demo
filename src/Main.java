@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -12,7 +13,6 @@ public class Main {
 
     private static List<Review> reviews = new ArrayList<>();
     private static List<Reservation> reservations = new ArrayList<>();
-    private static List<Category> categories = new ArrayList<>();
 
 
     private static List<Loan> loans = new ArrayList<>();
@@ -51,14 +51,13 @@ public static void main(String[] args) {
         System.out.println("16. Add Review"); 
         System.out.println("17. List Reviews"); 
         System.out.println("18. Make Reservation"); 
-        System.out.println("19. List Reservations"); 
-        System.out.println("20. Add Category"); 
-        System.out.println("21. List Categories"); 
+        System.out.println("19. List Reservations");  
+        System.out.println("20. List Categories"); 
 
-        System.out.println("22. Add Library Event");
-        System.out.println("23. List Library Events");
-        System.out.println("24. Remove Library Event");
-        System.out.println("25. Exit");
+        System.out.println("21. Add Library Event");
+        System.out.println("22. List Library Events");
+        System.out.println("23. Remove Library Event");
+        System.out.println("24. Exit");
 
         System.out.print("Enter your choice: ");
 
@@ -74,11 +73,11 @@ public static void main(String[] args) {
                 case 6: listDigitalResources(); break;
 
                 case 7: addMember(); break;
-                case 8: removeMember(); break; // CEYLIN - Added
+                case 8: removeMember(); break; 
                 case 9: listAllMembers(); break;
                 case 10: borrowBook(); break;
                 case 11: returnBook(); break;
-                case 12: assignFine(); break; // CEYLIN - Added
+                case 12: assignFine(); break; 
                 case 13: payFine(); break;
                 case 14: listFines(); break;
 
@@ -88,13 +87,12 @@ public static void main(String[] args) {
                 case 17: listReviews(); break;
                 case 18: makeReservation(); break;
                 case 19: listReservations(); break;
-                case 20: addCategory(); break;
-                case 21: listCategories(); break;
+                case 20: listCategories(); break;
 
-                case 22: addLibraryEvent(); break;
-                case 23: listLibraryEvents(); break;
-                case 24: removeLibraryEvent(); break;
-                case 25:
+                case 21: addLibraryEvent(); break;
+                case 22: listLibraryEvents(); break;
+                case 23: removeLibraryEvent(); break;
+                case 24:
                     running = false;
                     System.out.println("Exiting system. Goodbye!");
                     break;
@@ -125,9 +123,6 @@ public static void main(String[] args) {
     }
     
     private static void initializeSampleData() {
-        categories.add(new Category(1, "Classic", "Classic literature"));
-        categories.add(new Category(2, "Fiction", "Fictional works"));
-        categories.add(new Category(3, "Dystopian", "Dystopian novels"));
 
         library.addBook(new Book(1, "The Great Gatsby", "F. Scott Fitzgerald", "Classic", 1925, 3));
         library.addBook(new Book(2, "To Kill a Mockingbird", "Harper Lee", "Fiction", 1960, 2));
@@ -141,37 +136,79 @@ public static void main(String[] args) {
         events.add(new LibraryEvent(1, "Book Fair", "Annual book fair event", java.time.LocalDate.now().plusDays(10)));
     }
 
-    private static void addLibraryEvent() {
-        System.out.println("\n--- Add Library Event ---");
-        try {
-            System.out.print("Enter event ID: ");
-            int id = getIntInput();
-            for (LibraryEvent event : events) {
-                if (event.getId() == id) {
-                    System.out.println("An event with this ID already exists.");
-                    return;
-                }
-            }
-            scanner.nextLine();
-            System.out.print("Enter title: ");
-            String title = scanner.nextLine();
-            System.out.print("Enter description: ");
-            String desc = scanner.nextLine();
-            System.out.print("Enter date (YYYY-MM-DD): ");
-            String dateStr = scanner.nextLine();
-            java.time.LocalDate date;
-            try {
-                date = java.time.LocalDate.parse(dateStr);
-            } catch (Exception e) {
-                System.out.println("Invalid date format.");
+private static void addLibraryEvent() {
+    System.out.println("\n--- Add Library Event ---");
+    try {
+        System.out.print("Enter event ID: ");
+        int id = getIntInput();
+
+        if (id <= 0) {
+            throw new IllegalArgumentException("Event ID must be a positive number.");
+        }
+
+        // Check for duplicate ID
+        for (LibraryEvent event : events) {
+            if (event.getId() == id) {
+                System.out.println("An event with this ID already exists.");
                 return;
             }
-            events.add(new LibraryEvent(id, title, desc, date));
-            System.out.println("Library event added successfully!");
-        } catch (Exception e) {
-            System.out.println("Could not add event: " + e.getMessage());
         }
+
+        scanner.nextLine(); // Consume newline
+
+        System.out.print("Enter title: ");
+        String title = scanner.nextLine().trim();
+        if (title.isEmpty()) {
+            throw new IllegalArgumentException("Event title cannot be empty.");
+        }
+
+        System.out.print("Enter description: ");
+        String desc = scanner.nextLine().trim();
+        if (desc.isEmpty()) {
+            throw new IllegalArgumentException("Event description cannot be empty.");
+        }
+
+        System.out.print("Enter date (YYYY-MM-DD): ");
+        String dateStr = scanner.nextLine().trim();
+        LocalDate date;
+
+        try {
+            date = LocalDate.parse(dateStr);
+            if (date.isBefore(LocalDate.now())) {
+                throw new IllegalArgumentException("Event date cannot be in the past.");
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid date format. Please use YYYY-MM-DD.");
+        }
+
+        events.add(new LibraryEvent(id, title, desc, date));
+        System.out.println("Library event added successfully!");
+    } catch (Exception e) {
+        System.out.println("Could not add event: " + e.getMessage());
     }
+}
+
+
+private static void removeLibraryEvent() {
+    System.out.println("\n--- Remove Library Event ---");
+    try {
+        System.out.print("Enter event ID to remove: ");
+        int id = getIntInput();
+
+        if (id <= 0) {
+            throw new IllegalArgumentException("Event ID must be a positive number.");
+        }
+
+        boolean removed = events.removeIf(event -> event.getId() == id);
+        if (removed) {
+            System.out.println("Library event removed successfully!");
+        } else {
+            System.out.println("No library event found with that ID.");
+        }
+    } catch (Exception e) {
+        System.out.println("Could not remove event: " + e.getMessage());
+    }
+}
 
     private static void listLibraryEvents() {
         System.out.println("\n--- Library Events ---");
@@ -184,18 +221,6 @@ public static void main(String[] args) {
         }
     }
 
-    private static void removeLibraryEvent() {
-        System.out.println("\n--- Remove Library Event ---");
-        System.out.print("Enter event ID to remove: ");
-        int id = getIntInput();
-        boolean removed = events.removeIf(event -> event.getId() == id);
-        if (removed) {
-            System.out.println("Library event removed successfully!");
-        } else {
-            System.out.println("No library event found with that ID.");
-        }
-    }
-    
 
     // --- SNIGDHO ---
 
@@ -207,30 +232,46 @@ public static void main(String[] args) {
         try {
             System.out.print("Enter book ID: ");
             int id = getIntInput();
+            if (id <= 0) {
+                throw new IllegalArgumentException("Book ID must be a positive number.");
+            }
             if (library.getBook(id) != null) {
                 System.out.println("A book with this ID already exists.");
                 return;
             }
-            scanner.nextLine();
+    
+            scanner.nextLine(); // consume leftover newline
+    
             System.out.print("Enter title: ");
             String title = scanner.nextLine();
             System.out.print("Enter author: ");
             String author = scanner.nextLine();
-            System.out.print("Enter genre: ");
-            String genre = scanner.nextLine();
+            System.out.print("Enter category: ");
+            String category = scanner.nextLine().trim();
+    
+            if (category.isEmpty()) {
+                throw new IllegalArgumentException("Category cannot be empty.");
+            }
+    
             System.out.print("Enter publication year: ");
             int year = getIntInput();
+            if (year <= 0) {
+                throw new IllegalArgumentException("Publication year must be a positive number.");
+            }
+    
             System.out.print("Enter copies available: ");
             int copies = getIntInput();
-
-            Book newBook = new Book(id, title, author, genre, year, copies);
+            if (copies <= 0) {
+                throw new IllegalArgumentException("Copies available must be a positive number.");
+            }
+    
+            Book newBook = new Book(id, title, author, category, year, copies);
             librarian.addBook(library, newBook);
             System.out.println("Book added successfully!");
         } catch (Exception e) {
             System.out.println("Could not add book: " + e.getMessage());
         }
     }
-
     private static void removeBook() {
         System.out.println("\n--- Remove Book ---");
         try {
@@ -264,6 +305,11 @@ public static void main(String[] args) {
         try {
             System.out.print("Enter resource ID: ");
             int id = getIntInput();
+
+            if (id <= 0) {
+                throw new IllegalArgumentException("DigitalResource ID must be a positive number.");
+            }
+
             for (DigitalResource dr : digitalResources) {
                 if (dr.getId() == id) {
                     System.out.println("A digital resource with this ID already exists.");
@@ -322,8 +368,17 @@ public static void main(String[] args) {
         try {
             System.out.print("Enter member ID: ");
             int memberId = getIntInput();
+
+            if (memberId <= 0) {
+                throw new IllegalArgumentException("Member ID must be a positive number.");
+            }
+
             System.out.print("Enter book ID: ");
             int bookId = getIntInput();
+
+            if (bookId <= 0) {
+                throw new IllegalArgumentException("Book ID must be a positive number.");
+            }
     
             Member member = library.getMember(memberId);
             Book book = library.getBook(bookId);
@@ -351,8 +406,18 @@ public static void main(String[] args) {
         try {
             System.out.print("Enter member ID: ");
             int memberId = getIntInput();
+
+            if (memberId <= 0) {
+                throw new IllegalArgumentException("Member ID must be a positive number.");
+            }
+
+
             System.out.print("Enter book ID: ");
             int bookId = getIntInput();
+
+            if (bookId <= 0) {
+                throw new IllegalArgumentException("Book ID must be a positive number.");
+            }
     
             Member member = library.getMember(memberId);
             Book book = library.getBook(bookId);
@@ -395,6 +460,12 @@ public static void main(String[] args) {
         try {
             System.out.print("Enter member ID: ");
             int memberId = getIntInput();
+
+            
+            if (memberId <= 0) {
+                throw new IllegalArgumentException("Member ID must be a positive number.");
+            }
+
             boolean found = false;
             for (Fine fine : fines) {
                 if (fine.getMemberId() == memberId && fine.getAmount() > 0) {
@@ -430,6 +501,12 @@ public static void main(String[] args) {
         System.out.println("\n--- Assign Fine ---");
         System.out.print("Enter member ID: ");
         int memberId = getIntInput();
+
+        
+        if (memberId <= 0) {
+            throw new IllegalArgumentException("Member ID must be a positive number.");
+        }
+
         System.out.print("Enter fine amount: ");
         double amount = Double.parseDouble(scanner.nextLine());
         fines.add(new Fine(memberId, amount));
@@ -442,6 +519,11 @@ public static void main(String[] args) {
         try {
             System.out.print("Enter member ID: ");
             int id = getIntInput();
+
+            if (id <= 0) {
+                throw new IllegalArgumentException("Member ID must be a positive number.");
+            }
+            
             if (library.getMember(id) != null) {
                 System.out.println("A member with this ID already exists.");
                 return;
@@ -492,44 +574,61 @@ public static void main(String[] args) {
 
     // --- FARID ---
 
-    private static void addReview() {
-        System.out.println("\n--- Add Review ---");
-        try {
-            System.out.print("Enter review ID: ");
-            int id = getIntInput();
-            for (Review r : reviews) {
-                if (r.getId() == id) {
-                    System.out.println("A review with this ID already exists.");
-                    return;
-                }
-            }
-            System.out.print("Enter book ID: ");
-            int bookId = getIntInput();
-            System.out.print("Enter member ID: ");
-            int memberId = getIntInput();
-            System.out.print("Enter rating (1-5): ");
-            int rating = getIntInput();
-            scanner.nextLine();
-            System.out.print("Enter comment: ");
-            String comment = scanner.nextLine();
-
-            Book book = library.getBook(bookId);
-            Member member = library.getMember(memberId);
-
-            if (book == null) {
-                System.out.println("Book not found.");
-                return;
-            }
-            if (member == null) {
-                System.out.println("Member not found.");
-                return;
-            }
-            reviews.add(new Review(id, bookId, memberId, rating, comment));
-            System.out.println("Review added successfully!");
-        } catch (Exception e) {
-            System.out.println("Could not add review: " + e.getMessage());
+private static void addReview() {
+    System.out.println("\n--- Add Review ---");
+    try {
+        System.out.print("Enter review ID: ");
+        int id = getIntInput();
+        if (id <= 0) {
+            throw new IllegalArgumentException("Review ID must be a positive number.");
         }
+        for (Review r : reviews) {
+            if (r.getId() == id) {
+                System.out.println("A review with this ID already exists.");
+                return;
+            }
+        }
+
+        System.out.print("Enter book ID: ");
+        int bookId = getIntInput();
+        if (bookId <= 0) {
+            throw new IllegalArgumentException("Book ID must be a positive number.");
+        }
+
+        System.out.print("Enter member ID: ");
+        int memberId = getIntInput();
+        if (memberId <= 0) {
+            throw new IllegalArgumentException("Member ID must be a positive number.");
+        }
+
+        System.out.print("Enter rating (1-5): ");
+        int rating = getIntInput();
+        if (rating < 1 || rating > 5) {
+            throw new IllegalArgumentException("Rating must be between 1 and 5.");
+        }
+
+        scanner.nextLine(); // Consume newline
+        System.out.print("Enter comment: ");
+        String comment = scanner.nextLine();
+
+        Book book = library.getBook(bookId);
+        Member member = library.getMember(memberId);
+
+        if (book == null) {
+            System.out.println("Book not found.");
+            return;
+        }
+        if (member == null) {
+            System.out.println("Member not found.");
+            return;
+        }
+
+        reviews.add(new Review(id, bookId, memberId, rating, comment));
+        System.out.println("Review added successfully!");
+    } catch (Exception e) {
+        System.out.println("Could not add review: " + e.getMessage());
     }
+}
 
     private static void listReviews() {
         System.out.println("\n--- Reviews ---");
@@ -547,41 +646,60 @@ public static void main(String[] args) {
         try {
             System.out.print("Enter reservation ID: ");
             int id = getIntInput();
+            if (id <= 0) {
+                throw new IllegalArgumentException("Reservation ID must be a positive number.");
+            }
+    
+            // Check if reservation ID is taken
             for (Reservation r : reservations) {
                 if (r.getId() == id) {
                     System.out.println("A reservation with this ID already exists.");
                     return;
                 }
             }
+    
             System.out.print("Enter book ID: ");
             int bookId = getIntInput();
+            if (bookId <= 0) {
+                throw new IllegalArgumentException("Book ID must be a positive number.");
+            }
+    
             System.out.print("Enter member ID: ");
             int memberId = getIntInput();
-            java.time.LocalDate today = java.time.LocalDate.now();
-
+            if (memberId <= 0) {
+                throw new IllegalArgumentException("Member ID must be a positive number.");
+            }
+    
             Book book = library.getBook(bookId);
             Member member = library.getMember(memberId);
-
+    
             if (book == null) {
                 System.out.println("Book not found.");
                 return;
             }
+    
             if (member == null) {
                 System.out.println("Member not found.");
                 return;
             }
+    
+            // Check for existing reservation by the same member for the same book
             for (Reservation r : reservations) {
                 if (r.getBookId() == bookId && r.getMemberId() == memberId) {
                     System.out.println("This member has already reserved this book.");
                     return;
                 }
             }
+    
+            // Create new reservation
+            java.time.LocalDate today = java.time.LocalDate.now();
             reservations.add(new Reservation(id, bookId, memberId, today));
             System.out.println("Reservation made successfully!");
         } catch (Exception e) {
             System.out.println("Could not make reservation: " + e.getMessage());
         }
     }
+
 
     private static void listReservations() {
         System.out.println("\n--- Reservations ---");
@@ -594,36 +712,28 @@ public static void main(String[] args) {
         }
     }
 
-    private static void addCategory() {
-        System.out.println("\n--- Add Category ---");
-        try {
-            System.out.print("Enter category ID: ");
-            int id = getIntInput();
-            for (Category cat : categories) {
-                if (cat.getId() == id) {
-                    System.out.println("A category with this ID already exists.");
-                    return;
-                }
-            }
-            scanner.nextLine();
-            System.out.print("Enter name: ");
-            String name = scanner.nextLine();
-            System.out.print("Enter description: ");
-            String desc = scanner.nextLine();
-            categories.add(new Category(id, name, desc));
-            System.out.println("Category added successfully!");
-        } catch (Exception e) {
-            System.out.println("Could not add category: " + e.getMessage());
-        }
-    }
 
     private static void listCategories() {
         System.out.println("\n--- Categories ---");
-        if (categories.isEmpty()) {
+    
+        Map<String, Integer> totalBooksPerCategory = new HashMap<>();
+        Map<String, Integer> availableCopiesPerCategory = new HashMap<>();
+    
+        for (Book book : library.getBooks()) {
+            String category = book.getCategoryName();
+            totalBooksPerCategory.put(category, totalBooksPerCategory.getOrDefault(category, 0) + 1);
+            availableCopiesPerCategory.put(category,
+                    availableCopiesPerCategory.getOrDefault(category, 0) + book.getCopiesAvailable());
+        }
+    
+        if (totalBooksPerCategory.isEmpty()) {
             System.out.println("No categories found.");
         } else {
-            for (Category cat : categories) {
-                System.out.println(cat.categoryDetails());
+            for (Map.Entry<String, Integer> entry : totalBooksPerCategory.entrySet()) {
+                String category = entry.getKey();
+                int totalBooks = entry.getValue();
+                int availableCopies = availableCopiesPerCategory.get(category);
+                System.out.printf("Category: %s | Total Books: %d | Available Copies: %d\n", category, totalBooks, availableCopies);
             }
         }
     }
