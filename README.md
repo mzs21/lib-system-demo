@@ -61,6 +61,14 @@ This project is a comprehensive **Library Management System** designed to manage
 - **Modularity**: Each class has a clear, single responsibility.
 - **Extensibility**: Easy to add new features (e.g., new resource types or operations).
 
+
+---
+
+#### UML CLass Diagram
+
+
+
+
 ---
 
 #### Usage
