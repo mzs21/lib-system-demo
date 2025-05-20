@@ -1,5 +1,3 @@
-## This repo is for playing around.
-
 ## Project Report
 
 ### Library Management System
@@ -7,6 +5,16 @@
 #### Overview
 
 This project is a comprehensive **Library Management System** designed to manage books, members, librarians, digital resources, loans, reservations, fines, reviews, categories, and library events. The system provides a robust object-oriented structure, encapsulating real-world library operations and interactions.
+
+---
+
+### Members
+| Name                     | Department             |
+|--------------------------|------------------------|
+| Ceylin Oner              | Statistics             |
+| Farid Aljanov            | Statistics             |
+| Mehmet Alperen Calıs     | Statistics             |
+| Md Mashroor Zilan Snigdho| Mechanical Engineering |
 
 ---
 
@@ -67,7 +75,10 @@ This project is a comprehensive **Library Management System** designed to manage
 #### UML CLass Diagram
 
 
+The UML Class Diagram can also be accessed from [here](https://drive.google.com/file/d/1RAbndEpugd1JgESrhBtCyeitRTxVfwQu/view?usp=sharing)
 
+
+![UML CLass Diagram](https://github.com/mzs21/lib-system-demo/blob/main/UML%20Diagram/STAT295%20-%20Group%2011%20-%20UML%20Class%20Diagram%20-%20FINAL.png?raw=true  "UML Class Diagram")
 
 ---
 
@@ -89,15 +100,22 @@ This Library Management System provides a solid foundation for managing a librar
 
 ## Steps to run the project
 
-- Clone the repo
+- Clone the repo 
 
 ```bash
-git clone
+git clone [url]
 ```
+Or
 
-- Open the project in VSCode or IntelliJ IDEA
+- Download the zip file from the repository and extract it to your local machine.
+- Open the project folder in VSCode or IntelliJ IDEA
 - Open the terminal
 - Go to src folder
+
+```bash
+cd src
+```
+
 - Run the following command to compile the project
 
 ```bash
