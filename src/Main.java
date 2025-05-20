@@ -20,41 +20,51 @@ public class Main {
     
 
 
-public static void main(String[] args) {
-    initializeSampleData();
+    public static void main(String[] args) {
+        initializeSampleData();
+        Scanner scanner = new Scanner(System.in);
+        boolean systemRunning = true;
     
-    System.out.println("=== Welcome to Library Management System ===");
-    System.out.println("Select your role:");
-    System.out.println("1. Librarian");
-    System.out.println("2. Member");
-    System.out.print("Enter choice: ");
-    int roleChoice = getIntInput();
-
-    boolean running = true;
-    while (running) {
-        if (roleChoice == 1) {
-            displayLibrarianMenu();
-            int choice = getIntInput();
-
-            if (choice < 1 || choice > 24) {
-                System.out.println("Invalid choice! Please enter a number between 1 and 24.");
-                continue;
+        while (systemRunning) {
+            System.out.println("=== Welcome to Library Management System ===");
+            System.out.println("Select your role:");
+            System.out.println("1. Librarian");
+            System.out.println("2. Member");
+            System.out.println("0. Exit System");
+            System.out.print("Enter choice: ");
+            int roleChoice = getIntInput();
+    
+            if (roleChoice == 1 || roleChoice == 2) {
+                boolean roleRunning = true;
+                while (roleRunning) {
+                    if (roleChoice == 1) {
+                        displayLibrarianMenu();
+                        int choice = getIntInput();
+                        if (choice < 1 || choice > 25) {
+                            System.out.println("Invalid choice! Please enter a number between 1 and 25.");
+                            continue;
+                        }
+                        roleRunning = handleLibrarianActions(choice);
+                    } else {
+                        displayMemberMenu();
+                        int choice = getIntInput();
+                        if (choice < 1 || choice > 15) {
+                            System.out.println("Invalid choice! Please enter a number between 1 and 15.");
+                            continue;
+                        }
+                        roleRunning = handleMemberActions(choice);
+                    }
+                }
+            } else if (roleChoice == 0) {
+                exitSystem();
+            } else {
+                System.out.println("Invalid role selected. Exiting.");
+                systemRunning = false;
             }
-            handleLibrarianActions(choice);
-        } else if (roleChoice == 2) {
-            displayMemberMenu();
-            int choice = getIntInput();
-            if (choice < 1 || choice > 14) {
-                System.out.println("Invalid choice! Please enter a number between 1 and 14.");
-                continue;
-            }
-            handleMemberActions(choice);
-        } else {
-            System.out.println("Invalid role selected. Exiting.");
-            break;
         }
+    
+        scanner.close();
     }
-}
 
 private static void displayLibrarianMenu() {
     System.out.println("\n===== Librarian Menu =====");
@@ -81,7 +91,8 @@ private static void displayLibrarianMenu() {
     System.out.println("21. Add Library Event");
     System.out.println("22. List Library Events");
     System.out.println("23. Remove Library Event");
-    System.out.println("24. Exit");
+    System.out.println("24. Switch Role");
+System.out.println("25. Exit System");
     System.out.print("Enter your choice: ");
 }
 
@@ -100,11 +111,12 @@ private static void displayMemberMenu() {
     System.out.println("11. List Reservations");
     System.out.println("12. List Categories");
     System.out.println("13. List Library Events");
-    System.out.println("14. Exit");
+    System.out.println("14. Switch Role");
+System.out.println("15. Exit System");
     System.out.print("Enter your choice: ");
 }
 
-private static void handleLibrarianActions(int choice) {
+private static boolean handleLibrarianActions(int choice) {
     switch (choice) {
         case 1: addBook(); break;
         case 2: removeBook(); break;
@@ -129,13 +141,15 @@ private static void handleLibrarianActions(int choice) {
         case 21: addLibraryEvent(); break;
         case 22: listLibraryEvents(); break;
         case 23: removeLibraryEvent(); break;
-        case 24: exitSystem(); break;
+        case 24: return false;
+case 25: exitSystem();  break;
         default: System.out.println("Invalid librarian option.");
     }
+    return true;
 }
 
 
-private static void handleMemberActions(int choice) {
+private static boolean handleMemberActions(int choice) {
     switch (choice) {
         case 1: listAllBooks(); break;
         case 2: listDigitalResources(); break;
@@ -150,17 +164,17 @@ private static void handleMemberActions(int choice) {
         case 11: listReservations(); break;
         case 12: listCategories(); break;
         case 13: listLibraryEvents(); break;
-        case 14:
-            exitSystem();
+        case 14: return false; 
+case 15: exitSystem(); 
             break;
         default:
             System.out.println("Invalid member option.");
     }
+    return true;
 }
 
 private static void exitSystem() {
-    System.out.println("Exiting system. Goodbye!");
-    System.exit(0);
+    System.out.println("Returning to role selection...");
 }
 
     
