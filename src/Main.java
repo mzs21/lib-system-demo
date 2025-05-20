@@ -17,96 +17,151 @@ public class Main {
 
     private static List<Loan> loans = new ArrayList<>();
     private static List<Fine> fines = new ArrayList<>();
-
-    
-    
     
 
 
 public static void main(String[] args) {
     initializeSampleData();
+    
+    System.out.println("=== Welcome to Library Management System ===");
+    System.out.println("Select your role:");
+    System.out.println("1. Librarian");
+    System.out.println("2. Member");
+    System.out.print("Enter choice: ");
+    int roleChoice = getIntInput();
 
     boolean running = true;
     while (running) {
-        System.out.println("\n===== Library Management System =====");
+        if (roleChoice == 1) {
+            displayLibrarianMenu();
+            int choice = getIntInput();
 
-        System.out.println("1. Add Book"); 
-        System.out.println("2. Remove Book"); 
-        System.out.println("3. List All Books"); 
-        System.out.println("4. Add Digital Resource"); 
-        System.out.println("5. Remove Digital Resource"); 
-        System.out.println("6. List Digital Resources"); 
-
-        System.out.println("7. Add Member"); 
-        System.out.println("8. Remove Member"); 
-        System.out.println("9. List All Members"); 
-        System.out.println("10. Borrow Book"); 
-        System.out.println("11. Return Book"); 
-        System.out.println("12. Assign Fine"); 
-        System.out.println("13. Pay Fine"); 
-        System.out.println("14. List Fines"); 
-
-        System.out.println("15. List Loans"); 
-
-        System.out.println("16. Add Review"); 
-        System.out.println("17. List Reviews"); 
-        System.out.println("18. Make Reservation"); 
-        System.out.println("19. List Reservations");  
-        System.out.println("20. List Categories"); 
-
-        System.out.println("21. Add Library Event");
-        System.out.println("22. List Library Events");
-        System.out.println("23. Remove Library Event");
-        System.out.println("24. Exit");
-
-        System.out.print("Enter your choice: ");
-
-        int choice = getIntInput();
-
-        try {
-            switch (choice) {
-                case 1: addBook(); break;
-                case 2: removeBook(); break;
-                case 3: listAllBooks(); break;
-                case 4: addDigitalResource(); break;
-                case 5: removeDigitalResource(); break;
-                case 6: listDigitalResources(); break;
-
-                case 7: addMember(); break;
-                case 8: removeMember(); break; 
-                case 9: listAllMembers(); break;
-                case 10: borrowBook(); break;
-                case 11: returnBook(); break;
-                case 12: assignFine(); break; 
-                case 13: payFine(); break;
-                case 14: listFines(); break;
-
-                case 15: listLoans(); break;
-
-                case 16: addReview(); break;
-                case 17: listReviews(); break;
-                case 18: makeReservation(); break;
-                case 19: listReservations(); break;
-                case 20: listCategories(); break;
-
-                case 21: addLibraryEvent(); break;
-                case 22: listLibraryEvents(); break;
-                case 23: removeLibraryEvent(); break;
-                case 24:
-                    running = false;
-                    System.out.println("Exiting system. Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+            if (choice < 1 || choice > 24) {
+                System.out.println("Invalid choice! Please enter a number between 1 and 24.");
+                continue;
             }
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            System.out.println("Oops! " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Unexpected error: " + e.getMessage());
+            handleLibrarianActions(choice);
+        } else if (roleChoice == 2) {
+            displayMemberMenu();
+            int choice = getIntInput();
+            if (choice < 1 || choice > 14) {
+                System.out.println("Invalid choice! Please enter a number between 1 and 14.");
+                continue;
+            }
+            handleMemberActions(choice);
+        } else {
+            System.out.println("Invalid role selected. Exiting.");
+            break;
         }
     }
 }
 
+private static void displayLibrarianMenu() {
+    System.out.println("\n===== Librarian Menu =====");
+    System.out.println("1. Add Book");
+    System.out.println("2. Remove Book");
+    System.out.println("3. List All Books");
+    System.out.println("4. Add Digital Resource");
+    System.out.println("5. Remove Digital Resource");
+    System.out.println("6. List Digital Resources");
+    System.out.println("7. Add Member");
+    System.out.println("8. Remove Member");
+    System.out.println("9. List All Members");
+    System.out.println("10. Borrow Book");
+    System.out.println("11. Return Book");
+    System.out.println("12. Assign Fine");
+    System.out.println("13. Pay Fine");
+    System.out.println("14. List Fines");
+    System.out.println("15. List Loans");
+    System.out.println("16. Add Review");
+    System.out.println("17. List Reviews");
+    System.out.println("18. Make Reservation");
+    System.out.println("19. List Reservations");
+    System.out.println("20. List Categories");
+    System.out.println("21. Add Library Event");
+    System.out.println("22. List Library Events");
+    System.out.println("23. Remove Library Event");
+    System.out.println("24. Exit");
+    System.out.print("Enter your choice: ");
+}
+
+private static void displayMemberMenu() {
+    System.out.println("\n===== Member Menu =====");
+    System.out.println("1. List All Books");
+    System.out.println("2. List Digital Resources");
+    System.out.println("3. Borrow Book");
+    System.out.println("4. Return Book");
+    System.out.println("5. Pay Fine");
+    System.out.println("6. List Fines");
+    System.out.println("7. List Loans");
+    System.out.println("8. Add Review");
+    System.out.println("9. List Reviews");
+    System.out.println("10. Make Reservation");
+    System.out.println("11. List Reservations");
+    System.out.println("12. List Categories");
+    System.out.println("13. List Library Events");
+    System.out.println("14. Exit");
+    System.out.print("Enter your choice: ");
+}
+
+private static void handleLibrarianActions(int choice) {
+    switch (choice) {
+        case 1: addBook(); break;
+        case 2: removeBook(); break;
+        case 3: listAllBooks(); break;
+        case 4: addDigitalResource(); break;
+        case 5: removeDigitalResource(); break;
+        case 6: listDigitalResources(); break;
+        case 7: addMember(); break;
+        case 8: removeMember(); break;
+        case 9: listAllMembers(); break;
+        case 10: borrowBook(); break;
+        case 11: returnBook(); break;
+        case 12: assignFine(); break;
+        case 13: payFine(); break;
+        case 14: listFines(); break;
+        case 15: listLoans(); break;
+        case 16: addReview(); break;
+        case 17: listReviews(); break;
+        case 18: makeReservation(); break;
+        case 19: listReservations(); break;
+        case 20: listCategories(); break;
+        case 21: addLibraryEvent(); break;
+        case 22: listLibraryEvents(); break;
+        case 23: removeLibraryEvent(); break;
+        case 24: exitSystem(); break;
+        default: System.out.println("Invalid librarian option.");
+    }
+}
+
+
+private static void handleMemberActions(int choice) {
+    switch (choice) {
+        case 1: listAllBooks(); break;
+        case 2: listDigitalResources(); break;
+        case 3: borrowBook(); break;
+        case 4: returnBook(); break;
+        case 5: payFine(); break;
+        case 6: listFines(); break;
+        case 7: listLoans(); break;
+        case 8: addReview(); break;
+        case 9: listReviews(); break;
+        case 10: makeReservation(); break;
+        case 11: listReservations(); break;
+        case 12: listCategories(); break;
+        case 13: listLibraryEvents(); break;
+        case 14:
+            exitSystem();
+            break;
+        default:
+            System.out.println("Invalid member option.");
+    }
+}
+
+private static void exitSystem() {
+    System.out.println("Exiting system. Goodbye!");
+    System.exit(0);
+}
 
     // --- SNIGDHO ---
 
