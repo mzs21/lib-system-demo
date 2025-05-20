@@ -105,6 +105,8 @@ This Library Management System provides a solid foundation for managing a librar
 ```bash
 git clone [url]
 ```
+- replace [url] with the actual url of the repository
+
 Or
 
 - Download the zip file from the repository and extract it to your local machine.
