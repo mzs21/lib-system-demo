@@ -163,7 +163,7 @@ private static void exitSystem() {
     System.exit(0);
 }
 
-    
+    // --- SNIGDHO ---
 
     // Helper method to safely get integer input
     private static int getIntInput() {
@@ -277,10 +277,10 @@ private static void removeLibraryEvent() {
     }
 
 
-    
+    // --- SNIGDHO ---
 
 
-    
+    // --- ALPEREN ---
 
     private static void addBook() {
         System.out.println("\n--- Add New Book ---");
@@ -438,7 +438,9 @@ private static void removeLibraryEvent() {
     }
 
 
-    
+    // --- ALPEREN ---
+
+    // --- CEYLIN ---
 
 
     private static void borrowBook() {
@@ -590,7 +592,10 @@ private static void removeLibraryEvent() {
         }
     }
 
+    // --- CEYLIN ---
 
+
+    // --- FARID ---
 
 private static void addReview() {
     System.out.println("\n--- Add Review ---");
@@ -789,5 +794,5 @@ private static void addReview() {
         System.out.println("Fine assigned.");
     }
 
-
+    // --- FARID ---
 }
