@@ -174,7 +174,8 @@ case 15: exitSystem();
 }
 
 private static void exitSystem() {
-    System.out.println("Returning to role selection...");
+    System.out.println("Exiting the Library Management System. Goodbye!");
+    System.exit(0);
 }
 
     // --- SNIGDHO ---
