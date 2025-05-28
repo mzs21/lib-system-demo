@@ -9,12 +9,12 @@ This project is a comprehensive **Library Management System** designed to manage
 ---
 
 ### Group - 11: Members
-| Name                     | Department             |
-|--------------------------|------------------------|
-| Ceylin Oner              | Statistics             |
-| Farid Aljanov            | Statistics             |
-| Mehmet Alperen Calıs     | Statistics             |
-| Md Mashroor Zilan Snigdho| Mechanical Engineering |
+| Name                     | Department             | Student ID             |
+|--------------------------|------------------------|------------------------|
+| Ceylin Oner              | Statistics             |2614774                 |
+| Farid Aljanov            | Statistics             |2656023                 |
+| Mehmet Alperen Calıs     | Statistics             |2666493                 |
+| Md Mashroor Zilan Snigdho| Mechanical Engineering |2656346                 |
 
 ---
 
