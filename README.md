@@ -33,7 +33,6 @@ This project is a comprehensive **Library Management System** designed to manage
 
 - **Library**: Central class managing collections of books and members.
 - **Book**: Represents a physical book, tracks copies, and supports borrowing/returning.
-- **Category**: Classifies books and digital resources.
 - **Person**: Abstract base class for people in the system.
 - **Member**: Represents a library member, manages borrowed books, and supports borrowing/returning logic.
 - **Librarian**: Manages library inventory (add/remove books).
